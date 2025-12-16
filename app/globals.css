@@ -22,6 +22,14 @@
     will-change: transform, opacity;
   }
 
+  /* GPU layer for clip-path animations */
+  .gpu-layer {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    will-change: clip-path;
+    -webkit-backface-visibility: hidden;
+  }
+
   /* Jaffa Logo Text Shadow Effect */
   .jaffa-text-shadow-white {
     text-shadow:
