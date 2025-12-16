@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply overflow-x-hidden;
+    scroll-behavior: auto; /* GSAP controls scroll */
+  }
+
+  body {
+    @apply overflow-x-hidden bg-white text-gray-900;
+    font-family: var(--font-roboto), sans-serif;
+  }
+}
+
+@layer utilities {
+  /* GPU Acceleration for smooth animations */
+  .gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    will-change: transform, opacity;
+  }
+
+  /* Jaffa Logo Text Shadow Effect */
+  .jaffa-text-shadow-white {
+    text-shadow:
+      8px 8px 0px #000000,
+      -8px -8px 0px #000000,
+      -8px 8px 0px #000000,
+      8px -8px 0px #000000,
+      0px 8px 0px #000000,
+      8px 0px 0px #000000,
+      0px -8px 0px #000000,
+      -8px 0px 0px #000000;
+  }
+
+  .jaffa-text-shadow-black-red {
+    text-shadow:
+      8px 8px 0px #D94432,
+      -8px -8px 0px #D94432,
+      -8px 8px 0px #D94432,
+      8px -8px 0px #D94432,
+      0px 8px 0px #D94432,
+      8px 0px 0px #D94432,
+      0px -8px 0px #D94432,
+      -8px 0px 0px #D94432;
+  }
+
+  .jaffa-text-shadow-red-black {
+    text-shadow:
+      8px 8px 0px #000000,
+      -8px -8px 0px #000000,
+      -8px 8px 0px #000000,
+      8px -8px 0px #000000,
+      0px 8px 0px #000000,
+      8px 0px 0px #000000,
+      0px -8px 0px #000000,
+      -8px 0px 0px #000000;
+  }
+}
