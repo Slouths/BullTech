@@ -74,9 +74,10 @@ export default function WorkPage() {
                     <Image
                         src={project.image}
                         alt={project.title}
-                        width={300}
-                        height={300}
-                        className="opacity-20 group-hover:scale-110 transition-transform duration-700"
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-cover opacity-60 group-hover:scale-110 transition-transform duration-700"
+                        loading="lazy"
                     />
                 </div>
                 

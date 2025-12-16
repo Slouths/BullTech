@@ -26,7 +26,7 @@ export default function Header() {
           className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 transition-all border border-white/5 group"
         >
              <Image
-              src="/AF_Bulltech_Miami_Logo_BW.png"
+              src="/AF_Bulltech_Miami_Logo_BW.webp"
               alt="Home"
               width={24}
               height={24}
