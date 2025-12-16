@@ -125,11 +125,11 @@ export default function Logo() {
       {/* Black Logo (visible on blue section) */}
       <div
         ref={logoBaseRef}
-        className="absolute w-[clamp(300px,40vw,600px)] h-auto"
+        className="absolute w-[clamp(500px,60vw,900px)] h-auto"
         style={{ willChange: 'clip-path', transform: 'translateZ(0)' }}
       >
         <Image
-          src="/AF_Bulltech_Miami_Logotipo_BW.png"
+          src="/AF_Bulltech_Miami_Stickers01_BW.png"
           alt="BullTech Miami Logo"
           width={600}
           height={600}
@@ -142,11 +142,11 @@ export default function Logo() {
       {/* Pink Logo Layer (revealed on white section) */}
       <div
         ref={logoBlackRef}
-        className="absolute w-[clamp(300px,40vw,600px)] h-auto"
+        className="absolute w-[clamp(500px,60vw,900px)] h-auto"
         style={{ clipPath: 'inset(100% 0 100% 0)', willChange: 'clip-path', transform: 'translateZ(0)' }}
       >
         <Image
-          src="/AF_Bulltech_Miami_Logotipo_BW.png"
+          src="/AF_Bulltech_Miami_Stickers01_BW.png"
           alt="BullTech Miami Logo"
           width={600}
           height={600}
@@ -158,11 +158,11 @@ export default function Logo() {
       {/* White Logo Layer (revealed on dark section) */}
       <div
         ref={logoColorRef}
-        className="absolute w-[clamp(300px,40vw,600px)] h-auto"
+        className="absolute w-[clamp(500px,60vw,900px)] h-auto"
         style={{ clipPath: 'inset(100% 0 100% 0)', willChange: 'clip-path', transform: 'translateZ(0)' }}
       >
         <Image
-          src="/AF_Bulltech_Miami_Logotipo_BW.png"
+          src="/AF_Bulltech_Miami_Stickers01_BW.png"
           alt="BullTech Miami Logo"
           width={600}
           height={600}
