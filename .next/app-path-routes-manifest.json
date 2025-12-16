@@ -1,7 +1,7 @@
 {
   "/_not-found/page": "/_not-found",
-  "/equipment/page": "/equipment",
-  "/work/page": "/work",
   "/page": "/",
-  "/services/page": "/services"
+  "/services/page": "/services",
+  "/work/page": "/work",
+  "/equipment/page": "/equipment"
 }
