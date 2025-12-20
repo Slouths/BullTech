@@ -5,10 +5,9 @@ import Image from 'next/image';
 
 export default function Header() {
   const navItems = [
-    { label: 'The Studio', href: '/' },
+    { label: 'About', href: '/about' },
     { label: 'Services', href: '/services' },
     { label: 'Work', href: '/work' },
-    { label: 'Gear', href: '/equipment' },
   ];
 
   return (
@@ -21,8 +20,8 @@ export default function Header() {
       <nav className="pointer-events-auto flex items-center gap-1 p-1.5 pl-2 bg-[#0A0A0A]/90 backdrop-blur-md border border-white/10 rounded-full shadow-2xl ring-1 ring-white/5 transition-transform hover:scale-[1.01] duration-300">
         
         {/* Logo Orb */}
-        <Link 
-          href="#section1" 
+        <Link
+          href="/"
           className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 transition-all border border-white/5 group"
         >
              <Image
@@ -54,10 +53,10 @@ export default function Header() {
 
         {/* Action Button */}
         <Link 
-            href="#section3"
+            href="/contact"
             className="flex items-center gap-2 px-6 py-2.5 bg-bulltech-blue hover:bg-bulltech-pink text-black text-[11px] font-bold uppercase tracking-widest rounded-full transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,143,190,0.4)]"
         >
-            <span>Book Now</span>
+            <span>Contact Now</span>
             <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg" className="opacity-60">
                 <path d="M1 9L9 1M9 1H3M9 1V7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
