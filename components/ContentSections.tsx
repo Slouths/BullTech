@@ -12,7 +12,7 @@ export default function ContentSections() {
         style={{ backgroundColor: '#080808' }}
       >
         {/* Centered Content Overlay */}
-        <div className="relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto space-y-12 mt-20 md:mt-0">
+        <div className="relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto space-y-12 mt-32 md:mt-24">
           
           {/* Main Headline */}
           <div className="space-y-4">
@@ -20,7 +20,7 @@ export default function ContentSections() {
               Miami Based<br/>
               Digital Operators
             </h1>
-            <p className="text-xl md:text-3xl font-bold tracking-tight text-white/80">
+            <p className="text-xl md:text-3xl font-bold tracking-tight text-white">
               & Digital Kit Package rentals.
             </p>
           </div>
@@ -37,8 +37,8 @@ export default function ContentSections() {
               <p className="text-lg md:text-xl font-medium leading-relaxed">
                 At BullTech, we believe that great imagery is the product of both artistry and precision.
               </p>
-              <p className="text-base font-medium opacity-80 leading-relaxed">
-                Our role is to build the most stable, efficient, and bulletproof workflow for your project, so 
+              <p className="text-base font-medium leading-relaxed">
+                Our role is to build the most stable, efficient, and bulletproof workflow for your project, so
                 that photographers and directors can focus entirely on the creative process.
               </p>
               <p className="text-lg font-bold">
@@ -50,7 +50,7 @@ export default function ContentSections() {
         </div>
 
         {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-white/50 text-sm font-bold uppercase tracking-[0.3em] z-10 pointer-events-none">
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-white/50 text-sm font-bold uppercase tracking-[0.3em] z-10 pointer-events-none text-center">
           Scroll to Explore
         </div>
       </section>

@@ -61,7 +61,7 @@ export default function Logo() {
   }, []);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-[9999] opacity-40">
+    <div className="fixed inset-0 pointer-events-none z-[5] opacity-45">
         
         {/* 1. Base Layer: Pink Logo (Visible on Section 1) */}
         {/* Full screen wrapper centering the logo */}
