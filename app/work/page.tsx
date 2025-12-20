@@ -68,21 +68,15 @@ export default function WorkPage() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from('.work-title', {
-        y: 60,
-        opacity: 0,
-        duration: 1,
-        ease: 'power3.out',
-      });
+      gsap.fromTo('.work-title',
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }
+      );
 
-      gsap.from('.company-logo', {
-        y: 40,
-        opacity: 0,
-        duration: 0.8,
-        delay: 0.3,
-        stagger: 0.1,
-        ease: 'power3.out',
-      });
+      gsap.fromTo('.company-logo',
+        { opacity: 0 },
+        { opacity: 1, duration: 0.3, delay: 0.1, stagger: 0.01, ease: 'power2.out' }
+      );
     }, containerRef);
 
     return () => ctx.revert();
