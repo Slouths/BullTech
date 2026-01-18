@@ -66,7 +66,7 @@ export default function Logo() {
         {/* 1. Base Layer: Pink Logo (Visible on Section 1) */}
         {/* Full screen wrapper centering the logo */}
         <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-[clamp(500px,60vw,900px)] h-auto gpu-layer">
+            <div className="w-[clamp(600px,90vw,1400px)] h-auto gpu-layer">
                 <div className="relative w-full h-auto aspect-square">
                     <Image
                         src="/AF_Bulltech_Miami_Stickers01_BW.webp"
@@ -101,7 +101,7 @@ export default function Logo() {
           className="absolute inset-0 flex items-center justify-center"
           style={{ clipPath: 'inset(100% 0 0% 0)' }}
         >
-           <div className="w-[clamp(500px,60vw,900px)] h-auto gpu-layer">
+           <div className="w-[clamp(600px,90vw,1400px)] h-auto gpu-layer">
                 <div className="relative w-full h-auto aspect-square">
                     <Image
                         src="/AF_Bulltech_Miami_Stickers01_BW.webp"
@@ -135,7 +135,7 @@ export default function Logo() {
           className="absolute inset-0 flex items-center justify-center"
           style={{ clipPath: 'inset(100% 0 0% 0)' }}
         >
-           <div className="w-[clamp(500px,60vw,900px)] h-auto gpu-layer">
+           <div className="w-[clamp(600px,90vw,1400px)] h-auto gpu-layer">
                 <div className="relative w-full h-auto aspect-square">
                     <Image
                         src="/AF_Bulltech_Miami_Stickers01_BW.webp"

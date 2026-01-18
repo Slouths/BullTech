@@ -1,7 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
+
+interface DailyWeather {
+  day: string;
+  code: number;
+  max: number;
+  min: number;
+}
 
 interface WeatherData {
   temp: number;
@@ -9,7 +16,96 @@ interface WeatherData {
   humidity: number;
   wind: number;
   icon: string;
+  daily?: DailyWeather[];
 }
+
+// Reusable Custom Select Component
+interface Option {
+  label: string;
+  value: string;
+}
+
+interface CustomSelectProps {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  options: Option[];
+  isOpen: boolean;
+  onToggle: () => void;
+  placeholder?: string;
+}
+
+const CustomSelect = ({ label, value, onChange, options, isOpen, onToggle, placeholder = 'Select an option' }: CustomSelectProps) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Scroll active option into view when opened
+  useEffect(() => {
+    if (isOpen && containerRef.current) {
+      const activeOption = containerRef.current.querySelector('[data-active="true"]');
+      if (activeOption) {
+        activeOption.scrollIntoView({ block: 'nearest' });
+      }
+    }
+  }, [isOpen]);
+
+  const selectedLabel = options.find(opt => opt.value === value)?.label || placeholder;
+
+  return (
+    <div className="relative" ref={containerRef}>
+      <label className="block text-sm font-bold uppercase tracking-wider mb-2">
+        {label}
+      </label>
+      
+      <button
+        type="button"
+        onClick={onToggle}
+        className={`w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-left text-white focus:outline-none focus:border-bulltech-pink transition-all duration-200 flex items-center justify-between group ${
+          isOpen ? 'border-bulltech-pink bg-white/15' : 'hover:bg-white/15'
+        }`}
+      >
+        <span className={`block truncate ${!value ? 'text-white/40' : ''}`}>
+          {selectedLabel}
+        </span>
+        <svg 
+          className={`w-5 h-5 text-white/60 transition-transform duration-300 ${isOpen ? 'rotate-180 text-bulltech-pink' : 'group-hover:text-white'}`} 
+          fill="none" 
+          stroke="currentColor" 
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+
+      <div className={`absolute z-50 top-full left-0 right-0 mt-2 bg-[#1a1a1a] border border-white/20 rounded-lg shadow-2xl overflow-hidden transition-all duration-200 origin-top ${isOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'}`}>
+        <div className="max-h-60 overflow-y-auto p-1 custom-scrollbar">
+          {options.map((option) => (
+            <button
+              key={option.value}
+              type="button"
+              data-active={option.value === value}
+              onClick={() => {
+                onChange(option.value);
+                onToggle();
+              }}
+              className={`w-full text-left px-3 py-2.5 rounded-md text-sm transition-colors flex items-center justify-between ${
+                option.value === value
+                  ? 'bg-bulltech-pink/20 text-bulltech-pink font-medium'
+                  : 'text-white/80 hover:bg-white/10 hover:text-white'
+              }`}
+            >
+              {option.label}
+              {option.value === value && (
+                <svg className="w-4 h-4 text-bulltech-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              )}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -22,6 +118,7 @@ export default function ContactPage() {
     services: [] as string[],
     otherService: '',
     shootLocation: '',
+    shootLocationDetails: '',
     locationType: '',
     shootType: '',
     equipmentNeeds: '',
@@ -30,34 +127,64 @@ export default function ContactPage() {
 
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  // Manage which dropdown is open
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Fetch Miami weather from Open-Meteo (free, no API key needed)
+    // Fetch Miami weather
     const fetchWeather = async () => {
       try {
         const res = await fetch(
-          'https://api.open-meteo.com/v1/forecast?latitude=25.76&longitude=-80.19&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&temperature_unit=fahrenheit&wind_speed_unit=mph'
+          'https://api.open-meteo.com/v1/forecast?latitude=25.76&longitude=-80.19&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America%2FNew_York'
         );
         const data = await res.json();
 
-        const weatherCode = data.current.weather_code;
-        let condition = 'Clear';
-        let icon = '☀️';
+        const getWeatherIcon = (code: number) => {
+          if (code >= 0 && code <= 3) return '☀️';
+          if (code >= 45 && code <= 48) return '🌫️';
+          if (code >= 51 && code <= 67) return '🌧️';
+          if (code >= 71 && code <= 77) return '❄️';
+          if (code >= 80 && code <= 82) return '🌦️';
+          if (code >= 95 && code <= 99) return '⛈️';
+          return '☁️';
+        };
 
-        if (weatherCode >= 0 && weatherCode <= 3) { condition = 'Clear'; icon = '☀️'; }
-        else if (weatherCode >= 45 && weatherCode <= 48) { condition = 'Foggy'; icon = '🌫️'; }
-        else if (weatherCode >= 51 && weatherCode <= 67) { condition = 'Rainy'; icon = '🌧️'; }
-        else if (weatherCode >= 71 && weatherCode <= 77) { condition = 'Snowy'; icon = '❄️'; }
-        else if (weatherCode >= 80 && weatherCode <= 82) { condition = 'Showers'; icon = '🌦️'; }
-        else if (weatherCode >= 95 && weatherCode <= 99) { condition = 'Thunderstorm'; icon = '⛈️'; }
-        else { condition = 'Cloudy'; icon = '☁️'; }
+        const currentCode = data.current.weather_code;
+        
+        // Process daily forecast (next 5 days)
+        // Ensure data.daily exists before mapping
+        let daily: DailyWeather[] = [];
+        if (data.daily && data.daily.time) {
+          daily = data.daily.time.slice(0, 5).map((time: string, index: number) => {
+            const date = new Date(time + 'T12:00:00'); // Append time to avoid UTC shift
+            const day = date.toLocaleDateString('en-US', { weekday: 'short' });
+            
+            // Safely get temps, fallback to current if missing (though unlikely with proper API call)
+            const max = typeof data.daily.temperature_2m_max[index] === 'number' 
+              ? Math.round(data.daily.temperature_2m_max[index]) 
+              : 0;
+            const min = typeof data.daily.temperature_2m_min[index] === 'number' 
+              ? Math.round(data.daily.temperature_2m_min[index]) 
+              : 0;
+
+            return {
+              day,
+              code: data.daily.weather_code[index],
+              max,
+              min,
+            };
+          });
+        }
 
         setWeather({
           temp: Math.round(data.current.temperature_2m),
-          condition,
+          condition: 'Clear', // Simplified
           humidity: data.current.relative_humidity_2m,
           wind: Math.round(data.current.wind_speed_10m),
-          icon,
+          icon: getWeatherIcon(currentCode),
+          daily
         });
       } catch (error) {
         console.error('Failed to fetch weather:', error);
@@ -65,6 +192,19 @@ export default function ContactPage() {
     };
 
     fetchWeather();
+  }, []);
+
+  // Handle clicking outside dropdowns
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      // Check if click is inside specific service dropdown or generic container
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setActiveDropdown(null);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   const handleServiceChange = (service: string) => {
@@ -85,6 +225,51 @@ export default function ContactPage() {
       alert('Thank you for your submission!');
     }, 1000);
   };
+
+  const selectedServicesText = formData.services.length > 0
+    ? formData.services.join(', ')
+    : 'Select workflow';
+
+  // Options Data
+  const shootLocationOptions = [
+    { label: 'Miami', value: 'miami' },
+    { label: 'Isla Morada', value: 'isla-morada' },
+    { label: 'Key West', value: 'key-west' },
+    { label: 'Hollywood', value: 'hollywood' },
+    { label: 'Ft. Lauderdale', value: 'ft-lauderdale' },
+    { label: 'Palm Beach', value: 'palm-beach' },
+    { label: 'Orlando', value: 'orlando' },
+    { label: 'Atlanta', value: 'atlanta' },
+    { label: 'NYC', value: 'nyc' },
+    { label: 'LA', value: 'la' },
+    { label: 'Another US State', value: 'another-us-state' },
+    { label: 'Bahamas', value: 'bahamas' },
+    { label: 'Caribbean (specify)', value: 'caribbean-specify' },
+    { label: 'Spain', value: 'spain' },
+    { label: 'International (specify)', value: 'international-specify' },
+    { label: 'N/A', value: 'na' },
+  ];
+
+  const locationTypeOptions = [
+    { label: 'Studio', value: 'studio' },
+    { label: 'On Location (Indoor)', value: 'indoor' },
+    { label: 'On Location (Outdoor)', value: 'outdoor' },
+    { label: 'Underwater', value: 'underwater' },
+    { label: 'Virtual', value: 'virtual' },
+    { label: 'Other', value: 'other' },
+    { label: 'N/A', value: 'na' },
+  ];
+
+  const shootTypeOptions = [
+    { label: 'Advertising', value: 'advertising' },
+    { label: 'Catalog', value: 'catalog' },
+    { label: 'Editorial', value: 'editorial' },
+    { label: 'E-Commerce', value: 'ecommerce' },
+    { label: 'Publicity', value: 'publicity' },
+    { label: 'Social Content', value: 'social-content' },
+    { label: 'Tech/Support Request', value: 'tech-support' },
+    { label: 'Test / Portfolio Request', value: 'test-portfolio' },
+  ];
 
   return (
     <div className="min-h-screen bg-[#080808] text-white pt-32 md:pt-40 pb-12">
@@ -117,68 +302,67 @@ export default function ContactPage() {
               </a>
             </div>
 
-            {/* WhatsApp QR Code Section */}
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 max-w-sm">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-bulltech-pink to-bulltech-blue flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">BT</span>
-                </div>
-                <div>
-                  <p className="font-bold text-lg">Bull</p>
-                  <a
-                    href="https://wa.me/1786206499"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-bulltech-pink hover:underline"
-                  >
-                    wa.me/1786206499
-                  </a>
+            {/* BullTech LLC QR Code Card */}
+            <div className="bg-[#111] border border-white/10 rounded-2xl p-8 max-w-sm flex flex-col items-center text-center shadow-2xl relative overflow-hidden group">
+              <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-bulltech-blue via-white to-bulltech-pink opacity-50"></div>
+              
+              <div className="relative mb-6">
+                <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white/10 p-1 bg-black">
+                  <Image
+                    src="/AF_Bulltech_Miami_Logo.webp"
+                    alt="BullTech Logo"
+                    width={64}
+                    height={64}
+                    className="w-full h-full object-cover rounded-full"
+                  />
                 </div>
               </div>
-              <p className="text-xs text-white/60 mb-4">WhatsApp Business Account</p>
-              {/* QR Code - Using a QR code generator API */}
-              <div className="bg-white p-4 rounded-lg flex items-center justify-center aspect-square">
+
+              <h3 className="text-2xl font-bold mb-1">BullTech LLC</h3>
+              <p className="text-white/40 text-sm mb-6">WhatsApp Business Account</p>
+
+              <div className="bg-white p-2 rounded-xl mb-2">
                 <img
                   src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://wa.me/1786206499`}
                   alt="WhatsApp QR Code"
-                  className="w-full h-full object-contain"
+                  className="w-48 h-48 object-contain mix-blend-multiply"
                 />
               </div>
             </div>
 
-            {/* Miami Weather Widget */}
+            {/* Week Weather Outcome Widget */}
             <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 max-w-sm">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-bulltech-blue to-bulltech-pink flex items-center justify-center">
-                  <span className="text-2xl">{weather?.icon || '☀️'}</span>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-bulltech-blue to-bulltech-pink flex items-center justify-center overflow-hidden p-0.5">
+                  <Image
+                    src="/AF_Bulltech_Miami_Logo.webp"
+                    alt="BullTech Logo"
+                    width={40}
+                    height={40}
+                    className="w-full h-full object-cover rounded-full"
+                  />
                 </div>
                 <div>
-                  <p className="font-bold text-lg">Miami Weather</p>
-                  <p className="text-sm text-white/60">Current Conditions</p>
+                  <p className="font-bold text-lg uppercase tracking-tight">Week Weather Outcome</p>
+                  <p className="text-xs text-white/60">Miami, FL</p>
                 </div>
               </div>
 
-              {weather ? (
-                <div className="space-y-4">
-                  {/* Temperature Display */}
-                  <div className="flex items-end gap-2">
-                    <span className="text-5xl font-black text-bulltech-blue">{weather.temp}°</span>
-                    <span className="text-lg text-white/60 mb-2">F</span>
-                  </div>
-
-                  <p className="text-lg font-medium text-white/80">{weather.condition}</p>
-
-                  {/* Weather Details */}
-                  <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/10">
-                    <div>
-                      <p className="text-xs text-white/40 uppercase tracking-wider">Humidity</p>
-                      <p className="text-lg font-bold">{weather.humidity}%</p>
+              {weather && weather.daily ? (
+                <div className="space-y-3">
+                  {weather.daily.map((day, i) => (
+                    <div key={i} className="flex items-center justify-between text-sm py-2 border-b border-white/5 last:border-0">
+                      <div className="w-12 font-medium text-white/80">{day.day}</div>
+                      <div className="text-xl">
+                        {day.code >= 0 && day.code <= 3 ? '☀️' : 
+                         day.code >= 51 ? '🌧️' : '☁️'}
+                      </div>
+                      <div className="flex gap-3 font-mono">
+                        <span className="text-white">{day.max}°</span>
+                        <span className="text-white/40">{day.min}°</span>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-xs text-white/40 uppercase tracking-wider">Wind</p>
-                      <p className="text-lg font-bold">{weather.wind} mph</p>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               ) : (
                 <div className="flex items-center justify-center h-32">
@@ -186,10 +370,65 @@ export default function ContactPage() {
                 </div>
               )}
             </div>
+
+            {/* Live Sets Widget */}
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 max-w-sm">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-bulltech-pink to-bulltech-blue flex items-center justify-center">
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="font-bold text-lg uppercase tracking-tight">Live Sets</p>
+                  <p className="text-xs text-white/60">Miami, FL</p>
+                </div>
+              </div>
+
+              {/* Coral City Camera Embed */}
+              <div className="aspect-video rounded-lg overflow-hidden bg-black mb-4 border border-white/10 relative group">
+                 <iframe 
+                   width="100%" 
+                   height="100%" 
+                   src="https://www.youtube.com/embed/live_stream?channel=UCp-b2zZ0CB9NY_oWurKlWFg&autoplay=1&mute=1" 
+                   title="Coral City Camera" 
+                   frameBorder="0" 
+                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                   allowFullScreen
+                   className="absolute inset-0"
+                 ></iframe>
+                 <div className="absolute bottom-2 left-2 bg-black/60 backdrop-blur-md px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider text-white">
+                   Coral City • Underwater
+                 </div>
+              </div>
+
+              {/* Links to other cams */}
+              <div className="space-y-2">
+                <p className="text-xs font-bold uppercase text-white/40 tracking-wider mb-2">Other Locations</p>
+                {[
+                  { name: 'Miami Beach (1st St & W Hotel)', url: 'https://www.miamiandbeaches.com/plan-your-trip/miami-webcams?wc=10' },
+                  { name: 'Key Biscayne (Virginia Key)', url: 'https://www.miamiandbeaches.com/plan-your-trip/miami-webcams' },
+                  { name: 'Coconut Grove (Arya Hotel)', url: 'https://www.miamiandbeaches.com/plan-your-trip/miami-webcams' },
+                ].map((cam, i) => (
+                  <a 
+                    key={i}
+                    href={cam.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between p-3 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 transition-all group"
+                  >
+                    <span className="text-sm font-medium text-white/80 group-hover:text-white">{cam.name}</span>
+                    <svg className="w-4 h-4 text-white/40 group-hover:text-bulltech-pink transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* RIGHT COLUMN - Contact Form */}
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 md:p-12">
+          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 md:p-12" ref={dropdownRef}>
             <p className="text-sm text-white/70 mb-8">
               Requests for services may be submitted through this form. You are also welcome to e-mail us directly at{' '}
               <a href="mailto:info@bulldigital.com" className="text-bulltech-pink hover:underline">
@@ -280,101 +519,125 @@ export default function ContactPage() {
                 />
               </div>
 
-              {/* Services */}
-              <div>
-                <label className="block text-sm font-bold uppercase tracking-wider mb-3">
-                  Services (Requested)
+              {/* Services Dropdown (Multi-select) */}
+              <div className="relative">
+                <label className="block text-sm font-bold uppercase tracking-wider mb-2">
+                  Workflow
                 </label>
-                <div className="space-y-2">
-                  {['Digital Capture', 'Equipment Rental', 'Live Streaming', 'Post Production'].map((service) => (
-                    <label key={service} className="flex items-center gap-3 cursor-pointer group">
-                      <input
-                        type="checkbox"
-                        checked={formData.services.includes(service)}
-                        onChange={() => handleServiceChange(service)}
-                        className="w-5 h-5 rounded border-white/20 bg-white/10 text-bulltech-pink focus:ring-bulltech-pink focus:ring-2"
-                      />
-                      <span className="text-white group-hover:text-bulltech-pink transition-colors">{service}</span>
+                
+                <button
+                  type="button"
+                  onClick={() => setActiveDropdown(activeDropdown === 'services' ? null : 'services')}
+                  className={`w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-left text-white focus:outline-none focus:border-bulltech-pink transition-colors flex items-center justify-between group ${
+                    activeDropdown === 'services' ? 'border-bulltech-pink bg-white/15' : 'hover:bg-white/15'
+                  }`}
+                >
+                  <span className={`block truncate ${formData.services.length === 0 ? 'text-white/40' : ''}`}>
+                    {selectedServicesText}
+                  </span>
+                  <svg 
+                    className={`w-5 h-5 text-white/60 transition-transform duration-300 ${activeDropdown === 'services' ? 'rotate-180 text-bulltech-pink' : 'group-hover:text-white'}`} 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+
+                <div className={`absolute z-50 top-full left-0 right-0 mt-2 bg-[#1a1a1a] border border-white/20 rounded-lg shadow-2xl overflow-hidden transition-all duration-200 origin-top ${activeDropdown === 'services' ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'}`}>
+                  <div className="max-h-80 overflow-y-auto p-4 space-y-3 custom-scrollbar">
+                    {/* Services checkboxes */}
+                    <label className="flex items-center gap-3 cursor-pointer group">
+                      <input type="checkbox" checked={formData.services.includes('Digital Capture')} onChange={() => handleServiceChange('Digital Capture')} className="w-5 h-5 rounded border-white/20 bg-white/10 text-bulltech-pink focus:ring-bulltech-pink focus:ring-2" />
+                      <span className="text-white group-hover:text-bulltech-pink transition-colors">Digital Capture</span>
                     </label>
-                  ))}
-                  <label className="flex items-center gap-3 cursor-pointer group">
-                    <input
-                      type="checkbox"
-                      checked={formData.services.includes('Other')}
-                      onChange={() => handleServiceChange('Other')}
-                      className="w-5 h-5 rounded border-white/20 bg-white/10 text-bulltech-pink focus:ring-bulltech-pink focus:ring-2"
-                    />
-                    <span className="text-white group-hover:text-bulltech-pink transition-colors">Other (Specify)</span>
-                  </label>
-                  {formData.services.includes('Other') && (
-                    <input
-                      type="text"
-                      placeholder="Other"
-                      value={formData.otherService}
-                      onChange={(e) => setFormData({ ...formData, otherService: e.target.value })}
-                      className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-bulltech-pink transition-colors ml-8"
-                    />
-                  )}
+                    <label className="flex items-center gap-3 cursor-pointer group">
+                      <input type="checkbox" checked={formData.services.includes('Equipment Rental')} onChange={() => handleServiceChange('Equipment Rental')} className="w-5 h-5 rounded border-white/20 bg-white/10 text-bulltech-pink focus:ring-bulltech-pink focus:ring-2" />
+                      <span className="text-white group-hover:text-bulltech-pink transition-colors">Equipment Rental</span>
+                    </label>
+                    <label className="flex items-center gap-3 cursor-pointer group">
+                      <input type="checkbox" checked={formData.services.includes('Live Streaming')} onChange={() => handleServiceChange('Live Streaming')} className="w-5 h-5 rounded border-white/20 bg-white/10 text-bulltech-pink focus:ring-bulltech-pink focus:ring-2" />
+                      <span className="text-white group-hover:text-bulltech-pink transition-colors">Live Streaming</span>
+                    </label>
+                    <div className="space-y-3">
+                      <label className="flex items-center gap-3 cursor-pointer group">
+                        <input type="checkbox" checked={formData.services.includes('Post Production')} onChange={() => handleServiceChange('Post Production')} className="w-5 h-5 rounded border-white/20 bg-white/10 text-bulltech-pink focus:ring-bulltech-pink focus:ring-2" />
+                        <span className="text-white group-hover:text-bulltech-pink transition-colors">Post Production</span>
+                      </label>
+                      <div className="space-y-3">
+                        <label className="flex items-center gap-3 cursor-pointer group">
+                          <input type="checkbox" checked={formData.services.includes('Color')} onChange={() => handleServiceChange('Color')} className="w-4 h-4 rounded border-white/20 bg-white/10 text-bulltech-pink focus:ring-bulltech-pink focus:ring-2" />
+                          <span className="text-white group-hover:text-bulltech-pink transition-colors">Color</span>
+                        </label>
+                        <label className="flex items-center gap-3 cursor-pointer group">
+                          <input type="checkbox" checked={formData.services.includes('Retouching')} onChange={() => handleServiceChange('Retouching')} className="w-4 h-4 rounded border-white/20 bg-white/10 text-bulltech-pink focus:ring-bulltech-pink focus:ring-2" />
+                          <span className="text-white group-hover:text-bulltech-pink transition-colors">Retouching</span>
+                        </label>
+                      </div>
+                    </div>
+                    <label className="flex items-center gap-3 cursor-pointer group">
+                      <input type="checkbox" checked={formData.services.includes('Archival')} onChange={() => handleServiceChange('Archival')} className="w-5 h-5 rounded border-white/20 bg-white/10 text-bulltech-pink focus:ring-bulltech-pink focus:ring-2" />
+                      <span className="text-white group-hover:text-bulltech-pink transition-colors">Archival</span>
+                    </label>
+                    <label className="flex items-center gap-3 cursor-pointer group">
+                      <input type="checkbox" checked={formData.services.includes('Other')} onChange={() => handleServiceChange('Other')} className="w-5 h-5 rounded border-white/20 bg-white/10 text-bulltech-pink focus:ring-bulltech-pink focus:ring-2" />
+                      <span className="text-white group-hover:text-bulltech-pink transition-colors">Other (Specify)</span>
+                    </label>
+                  </div>
                 </div>
+                
+                {formData.services.includes('Other') && (
+                  <input
+                    type="text"
+                    placeholder="Please specify other services"
+                    value={formData.otherService}
+                    onChange={(e) => setFormData({ ...formData, otherService: e.target.value })}
+                    className="w-full mt-3 px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-bulltech-pink transition-colors"
+                  />
+                )}
               </div>
 
-              {/* Shoot Location */}
+              {/* Shoot Location - Custom Dropdown */}
               <div>
-                <label className="block text-sm font-bold uppercase tracking-wider mb-2">Shoot Location</label>
-                <select
+                <CustomSelect
+                  label="Shoot Location"
                   value={formData.shootLocation}
-                  onChange={(e) => setFormData({ ...formData, shootLocation: e.target.value })}
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:border-bulltech-pink transition-colors"
-                >
-                  <option value="">Select an option</option>
-                  <option value="los-angeles">Los Angeles, CA</option>
-                  <option value="greater-socal">Greater Southern California</option>
-                  <option value="northern-california">Northern California</option>
-                  <option value="nyc">New York City</option>
-                  <option value="another-state">Another State</option>
-                  <option value="international">International</option>
-                  <option value="virtual">Virtual</option>
-                  <option value="na">N/A</option>
-                </select>
+                  onChange={(value) => setFormData({ ...formData, shootLocation: value })}
+                  options={shootLocationOptions}
+                  isOpen={activeDropdown === 'shootLocation'}
+                  onToggle={() => setActiveDropdown(activeDropdown === 'shootLocation' ? null : 'shootLocation')}
+                />
+                {(formData.shootLocation === 'caribbean-specify' || formData.shootLocation === 'international-specify') && (
+                  <input
+                    type="text"
+                    placeholder="Please specify location"
+                    value={formData.shootLocationDetails}
+                    onChange={(e) => setFormData({ ...formData, shootLocationDetails: e.target.value })}
+                    className="w-full mt-3 px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-bulltech-pink transition-colors"
+                  />
+                )}
               </div>
 
-              {/* Location Type */}
-              <div>
-                <label className="block text-sm font-bold uppercase tracking-wider mb-2">Location Type</label>
-                <select
-                  value={formData.locationType}
-                  onChange={(e) => setFormData({ ...formData, locationType: e.target.value })}
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:border-bulltech-pink transition-colors"
-                >
-                  <option value="">Select an option</option>
-                  <option value="studio">Studio</option>
-                  <option value="indoor">On Location (Indoor)</option>
-                  <option value="outdoor">On Location (Outdoor)</option>
-                  <option value="underwater">Underwater</option>
-                  <option value="virtual">Virtual</option>
-                  <option value="other">Other</option>
-                  <option value="na">N/A</option>
-                </select>
-              </div>
+              {/* Location Type - Custom Dropdown */}
+              <CustomSelect
+                label="Location Type"
+                value={formData.locationType}
+                onChange={(value) => setFormData({ ...formData, locationType: value })}
+                options={locationTypeOptions}
+                isOpen={activeDropdown === 'locationType'}
+                onToggle={() => setActiveDropdown(activeDropdown === 'locationType' ? null : 'locationType')}
+              />
 
-              {/* Shoot Type */}
-              <div>
-                <label className="block text-sm font-bold uppercase tracking-wider mb-2">Shoot Type</label>
-                <select
-                  value={formData.shootType}
-                  onChange={(e) => setFormData({ ...formData, shootType: e.target.value })}
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:border-bulltech-pink transition-colors"
-                >
-                  <option value="">Select an option</option>
-                  <option value="advertising">Advertising</option>
-                  <option value="editorial">Editorial</option>
-                  <option value="ecommerce">E-Commerce</option>
-                  <option value="publicity">Publicity</option>
-                  <option value="social-content">Social Content</option>
-                  <option value="tech-support">Tech/Support Request</option>
-                  <option value="test-portfolio">Test / Portfolio Request</option>
-                </select>
-              </div>
+              {/* Shoot Type - Custom Dropdown */}
+              <CustomSelect
+                label="Shoot Type"
+                value={formData.shootType}
+                onChange={(value) => setFormData({ ...formData, shootType: value })}
+                options={shootTypeOptions}
+                isOpen={activeDropdown === 'shootType'}
+                onToggle={() => setActiveDropdown(activeDropdown === 'shootType' ? null : 'shootType')}
+              />
 
               {/* Equipment Needs */}
               <div>

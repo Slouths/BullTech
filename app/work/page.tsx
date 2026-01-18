@@ -5,52 +5,62 @@ import Image from 'next/image';
 import gsap from 'gsap';
 
 // Company data - logos with valid files marked, others show text
+// Order matches the provided image
 const companies = [
   { id: 'aarp', name: 'AARP', logo: null, images: [] },
   { id: 'adidas', name: 'Adidas', logo: '/logos/adidas.png', images: [] },
   { id: 'bacardi', name: 'BACARDÍ', logo: null, images: [] },
   { id: 'banamex', name: 'Banamex', logo: null, images: [] },
   { id: 'banco-de-chile', name: 'Banco de Chile', logo: null, images: [] },
+  
   { id: 'black-decker', name: 'BLACK+DECKER', logo: null, images: [] },
   { id: 'bodyhealth', name: 'BodyHealth', logo: null, images: [] },
   { id: 'coca-cola', name: 'Coca-Cola', logo: '/logos/coca-cola.png', images: [] },
   { id: 'cosmopolitan', name: 'Cosmopolitan', logo: null, images: [] },
-  { id: 'disney', name: 'Disney', logo: '/logos/disney.png', images: [] },
-  { id: 'dxl', name: 'DXL Big + Tall', logo: null, images: [] },
-  { id: 'ford', name: 'Ford', logo: '/logos/ford.png', images: [] },
+  { id: 'disney', name: 'Disney+', logo: '/logos/disney.png', images: [] }, // Image shows Disney+
+
+  { id: 'dxl', name: 'DXL BIG + TALL', logo: null, images: [] },
+  { id: 'unknown-oval', name: '', logo: null, images: [] }, // The white oval in the image - placeholder or specific brand? assuming placeholder/unknown for now or maybe it's a specific logo I don't have.
   { id: 'gap', name: 'GAP', logo: null, images: [] },
-  { id: 'guess', name: 'Guess', logo: null, images: [] },
-  { id: 'hca', name: 'HCA Healthcare', logo: null, images: [] },
-  { id: 'humana', name: 'Humana', logo: null, images: [] },
-  { id: 'justice', name: 'Justice', logo: null, images: [] },
+  { id: 'guess', name: 'GUESS', logo: null, images: [] },
+  { id: 'hca', name: 'HCA HEALTHCARE', logo: null, images: [] },
+
+  { id: 'humana', name: 'HUMANA', logo: null, images: [] },
+  { id: 'justice', name: 'JUSTICE', logo: null, images: [] },
   { id: 'lofficiel', name: "L'OFFICIEL", logo: null, images: [] },
-  { id: 'loreal', name: "L'Oréal", logo: '/logos/loreal.png', images: [] },
-  { id: 'macys', name: "Macy's", logo: null, images: [] },
+  { id: 'loreal', name: "L'ORÉAL", logo: '/logos/loreal.png', images: [] },
+  { id: 'macys', name: "MACY'S", logo: null, images: [] },
+
   { id: 'mastercard', name: 'Mastercard', logo: '/logos/mastercard.png', images: [] },
-  { id: 'neiman-marcus', name: 'Neiman Marcus', logo: null, images: [] },
-  { id: 'nickelodeon', name: 'Nickelodeon', logo: null, images: [] },
-  { id: 'novo', name: 'Novo', logo: null, images: [] },
-  { id: 'parade', name: 'Parade', logo: null, images: [] },
+  { id: 'neiman-marcus', name: 'NEIMAN MARCUS', logo: null, images: [] },
+  { id: 'nickelodeon', name: 'NICKELODEON', logo: null, images: [] },
+  { id: 'novo', name: 'NOVO', logo: null, images: [] },
+  { id: 'parade', name: 'PARADE', logo: null, images: [] },
+
   { id: 'pga-tour', name: 'PGA TOUR', logo: null, images: [] },
   { id: 'puma', name: 'PUMA', logo: null, images: [] },
-  { id: 'ralph-lauren', name: 'Ralph Lauren', logo: null, images: [] },
+  { id: 'ralph-lauren', name: 'RALPH LAUREN', logo: null, images: [] },
   { id: 'reebok', name: 'Reebok', logo: '/logos/reebok.png', images: [] },
-  { id: 'rolling-stone', name: 'Rolling Stone', logo: null, images: [] },
-  { id: 'sony', name: 'Sony', logo: '/logos/sony.png', images: [] },
-  { id: 'sony-music', name: 'Sony Music', logo: null, images: [] },
-  { id: 'telemundo', name: 'Telemundo', logo: null, images: [] },
-  { id: 't-mobile', name: 'T-Mobile', logo: null, images: [] },
+  { id: 'rolling-stone', name: 'ROLLING STONE', logo: null, images: [] },
+
+  { id: 'sony', name: 'SONY', logo: '/logos/sony.png', images: [] },
+  { id: 'sony-music', name: 'SONY MUSIC', logo: null, images: [] },
+  { id: 'telemundo', name: 'TELEMUNDO', logo: null, images: [] },
+  { id: 't-mobile', name: 'T-MOBILE', logo: null, images: [] },
   { id: 'toyota', name: 'Toyota', logo: '/logos/toyota.png', images: [] },
-  { id: 'us-polo', name: 'US Polo Assn', logo: null, images: [] },
-  { id: 'vanity-fair', name: 'Vanity Fair', logo: null, images: [] },
-  { id: 'virgin-atlantic', name: 'Virgin Atlantic', logo: null, images: [] },
-  { id: 'visa', name: 'Visa', logo: '/logos/visa.png', images: [] },
-  { id: 'warner-bros', name: 'Warner Bros.', logo: '/logos/warner-bros.png', images: [] },
-  { id: 'zara', name: 'Zara', logo: '/logos/zara.png', images: [] },
-  { id: 'american-tourister', name: 'American Tourister', logo: null, images: [] },
+
+  { id: 'us-polo', name: 'US POLO ASSN', logo: null, images: [] },
+  { id: 'vanity-fair', name: 'VANITY FAIR', logo: null, images: [] },
+  { id: 'virgin-atlantic', name: 'VIRGIN ATLANTIC', logo: null, images: [] },
+  { id: 'visa', name: 'VISA', logo: '/logos/visa.png', images: [] },
+  { id: 'warner-bros', name: 'WB', logo: '/logos/warner-bros.png', images: [] },
+
+  { id: 'zara', name: 'ZARA', logo: '/logos/zara.png', images: [] },
+  { id: 'american-tourister', name: 'AMERICAN TOURISTER', logo: null, images: [] },
   { id: 'audi', name: 'Audi', logo: '/logos/audi.png', images: [] },
-  { id: 'chevrolet', name: 'Chevrolet', logo: null, images: [] },
-  { id: 'chicos', name: "Chico's", logo: null, images: [] },
+  { id: 'chevrolet', name: 'CHEVROLET', logo: null, images: [] },
+  { id: 'chicos', name: "CHICO'S", logo: null, images: [] },
+
   { id: 'nike', name: 'Nike', logo: '/logos/nike.png', images: [] },
 ];
 
@@ -128,7 +138,7 @@ export default function WorkPage() {
         {/* Header */}
         <div className="mb-20 md:mb-24">
           <h1 className="work-title text-[clamp(3rem,8vw,8rem)] font-black uppercase leading-[0.85] tracking-tighter mb-8">
-            Our<br/>Clients
+            OUR<br/>CLIENTS
           </h1>
           <p className="work-title text-lg md:text-xl text-white/60 max-w-2xl leading-relaxed">
             We&apos;ve had the privilege of working with amazing brands and production teams.
@@ -137,7 +147,7 @@ export default function WorkPage() {
         </div>
 
         {/* Companies Grid - Logo Display */}
-        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
           {companies.map((company) => (
             <button
               key={company.id}
@@ -179,7 +189,7 @@ export default function WorkPage() {
 
         {/* Note about logos */}
         <p className="text-center text-white/30 text-xs mt-8 uppercase tracking-widest">
-          46 Brands & Counting
+          {companies.length} Brands & Counting
         </p>
 
         {/* Stats Section */}
@@ -192,7 +202,7 @@ export default function WorkPage() {
           ].map((stat, index) => (
             <div key={index} className="text-center">
               <div className="text-4xl md:text-5xl font-black text-bulltech-pink mb-2">{stat.value}</div>
-              <div className="text-xs uppercase tracking-[0.2em] text-white/50">{stat.label}</div>
+              <div className="text-xs uppercase tracking-[0.2em] text-white/50 leading-relaxed max-w-[150px] mx-auto">{stat.label}</div>
             </div>
           ))}
         </div>

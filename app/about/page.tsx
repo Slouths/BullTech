@@ -114,10 +114,10 @@ export default function AboutPage() {
         {/* Stats Section */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-20 pt-12 border-t border-white/10">
           {[
-            { value: '2022', label: 'Founded' },
-            { value: '30+', label: 'Years Experience' },
-            { value: '10+', label: 'Years Digital Tech' },
             { value: '100%', label: 'Reliability' },
+            { value: '30+', label: 'Years Experience' },
+            { value: '16+', label: 'Years Digital Tech' },
+            { value: '2022', label: 'Founded' },
           ].map((stat, index) => (
             <div key={index} className="about-stat text-center">
               <div className="text-4xl md:text-5xl font-black text-bulltech-pink mb-2">{stat.value}</div>
