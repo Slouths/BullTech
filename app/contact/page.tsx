@@ -464,7 +464,7 @@ export default function ContactPage() {
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-10">
               {/* Name Fields */}
               <div>
                 <label className="block text-sm font-bold uppercase tracking-wider mb-2">

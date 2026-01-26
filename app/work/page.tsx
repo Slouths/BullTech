@@ -84,8 +84,8 @@ export default function WorkPage() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo('.work-title',
-        { y: 30, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }
+        { y: 50, opacity: 0 },
+        { y: 20, opacity: 1, duration: 0.5, ease: 'power2.out' }
       );
 
       gsap.fromTo('.company-logo',
@@ -195,7 +195,7 @@ export default function WorkPage() {
         </div>
 
         {/* Note about logos */}
-        <p className="text-center text-white/30 text-xs mt-8 uppercase tracking-widest">
+        <p className="text-center text-white/30 text-xs mt-24 uppercase tracking-widest">
           40+ Brands & Counting
         </p>
 

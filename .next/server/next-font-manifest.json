@@ -19,6 +19,10 @@
     "[project]/web/BullTech/app/services/page": [
       "static/media/ce62453a442c7f35-s.p.a9507876.woff2",
       "static/media/612bd71aa396cae6-s.p.bf1bb858.woff2"
+    ],
+    "[project]/web/BullTech/app/work/page": [
+      "static/media/ce62453a442c7f35-s.p.a9507876.woff2",
+      "static/media/612bd71aa396cae6-s.p.bf1bb858.woff2"
     ]
   },
   "appUsingSizeAdjust": true,
