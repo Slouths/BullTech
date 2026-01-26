@@ -7,51 +7,51 @@ import gsap from 'gsap';
 // Company data - logos with valid files marked, others show text
 // Order matches the provided image
 const companies = [
-  { id: 'aarp', name: 'AARP', logo: null, images: [] },
+  { id: 'aarp', name: 'AARP', logo: '/logos/AARP_id67vHQ-gW_0.png', images: [] },
   { id: 'adidas', name: 'Adidas', logo: '/logos/adidas.png', images: [] },
-  { id: 'bacardi', name: 'BACARDÍ', logo: null, images: [] },
+  { id: 'bacardi', name: 'BACARDÍ', logo: '/logos/BACARDÍ_Logo_1.png', images: [] },
   { id: 'banamex', name: 'Banamex', logo: null, images: [] },
-  { id: 'banco-de-chile', name: 'Banco de Chile', logo: null, images: [] },
+  { id: 'banco-de-chile', name: 'Banco de Chile', logo: '/logos/Banco de Chile_idFm8SLWQ8_1.png', images: [], whiteLogo: true },
   
-  { id: 'black-decker', name: 'BLACK+DECKER', logo: null, images: [] },
-  { id: 'bodyhealth', name: 'BodyHealth', logo: null, images: [] },
+  { id: 'black-decker', name: 'BLACK+DECKER', logo: '/logos/BLACK+DECKER_idcmqdl1Ra_1.png', images: [] },
+  { id: 'bodyhealth', name: 'BodyHealth', logo: '/logos/BodyHealth_idwrZJJyvt_0.png', images: [] },
   { id: 'coca-cola', name: 'Coca-Cola', logo: '/logos/coca-cola.png', images: [] },
-  { id: 'cosmopolitan', name: 'Cosmopolitan', logo: null, images: [] },
+  { id: 'cosmopolitan', name: 'Cosmopolitan', logo: '/logos/Cosmopolitan_idtkMhB8ma_1.png', images: [] },
   { id: 'disney', name: 'Disney+', logo: '/logos/disney.png', images: [] }, // Image shows Disney+
 
-  { id: 'dxl', name: 'DXL BIG + TALL', logo: null, images: [] },
+  { id: 'dxl', name: 'DXL BIG + TALL', logo: '/logos/DXL Big + Tall_id_00o-s18_1.png', images: [] },
   { id: 'unknown-oval', name: '', logo: null, images: [] }, // The white oval in the image - placeholder or specific brand? assuming placeholder/unknown for now or maybe it's a specific logo I don't have.
-  { id: 'gap', name: 'GAP', logo: null, images: [] },
-  { id: 'guess', name: 'GUESS', logo: null, images: [] },
+  { id: 'gap', name: 'GAP', logo: '/logos/GAP_idrCX-lrbU_1.png', images: [] },
+  { id: 'guess', name: 'GUESS', logo: '/logos/Guess_idFvyXVvBG_1.png', images: [], whiteLogo: true },
   { id: 'hca', name: 'HCA HEALTHCARE', logo: null, images: [] },
 
-  { id: 'humana', name: 'HUMANA', logo: null, images: [] },
-  { id: 'justice', name: 'JUSTICE', logo: null, images: [] },
+  { id: 'humana', name: 'HUMANA', logo: '/logos/Humana_Logo_1.png', images: [] },
+  { id: 'justice', name: 'JUSTICE', logo: '/logos/Justice_idJKkD-aXE_1.png', images: [] },
   { id: 'lofficiel', name: "L'OFFICIEL", logo: null, images: [] },
   { id: 'loreal', name: "L'ORÉAL", logo: '/logos/loreal.png', images: [] },
-  { id: 'macys', name: "MACY'S", logo: null, images: [] },
+  { id: 'macys', name: "MACY'S", logo: "/logos/Macy's_id1bSFctD6_1.png", images: [] },
 
   { id: 'mastercard', name: 'Mastercard', logo: '/logos/mastercard.png', images: [] },
-  { id: 'neiman-marcus', name: 'NEIMAN MARCUS', logo: null, images: [] },
-  { id: 'nickelodeon', name: 'NICKELODEON', logo: null, images: [] },
-  { id: 'novo', name: 'NOVO', logo: null, images: [] },
-  { id: 'parade', name: 'PARADE', logo: null, images: [] },
+  { id: 'neiman-marcus', name: 'NEIMAN MARCUS', logo: '/logos/Neiman Marcus_idTfegSOzj_1.png', images: [] },
+  { id: 'nickelodeon', name: 'NICKELODEON', logo: '/logos/Nickelodeon Greece_idzYvbxzp0_0.png', images: [] },
+  { id: 'novo', name: 'NOVO', logo: '/logos/Novo_idpmMLw2CI_1.png', images: [] },
+  { id: 'parade', name: 'PARADE', logo: '/logos/Parade Magazine_idOaK9eZ2q_0.png', images: [], whiteLogo: true },
 
-  { id: 'pga-tour', name: 'PGA TOUR', logo: null, images: [] },
-  { id: 'puma', name: 'PUMA', logo: null, images: [] },
-  { id: 'ralph-lauren', name: 'RALPH LAUREN', logo: null, images: [] },
+  { id: 'pga-tour', name: 'PGA TOUR', logo: '/logos/PGA TOUR_idATncDXGY_0.png', images: [] },
+  { id: 'puma', name: 'PUMA', logo: '/logos/PUMA_idZScXivAN_1.png', images: [] },
+  { id: 'ralph-lauren', name: 'RALPH LAUREN', logo: '/logos/Ralph Lauren_id4gNvWZ8Z_1.png', images: [], whiteLogo: true },
   { id: 'reebok', name: 'Reebok', logo: '/logos/reebok.png', images: [] },
-  { id: 'rolling-stone', name: 'ROLLING STONE', logo: null, images: [] },
+  { id: 'rolling-stone', name: 'ROLLING STONE', logo: '/logos/Rolling Stone_idXkOrqE34_1.png', images: [] },
 
   { id: 'sony', name: 'SONY', logo: '/logos/sony.png', images: [] },
   { id: 'sony-music', name: 'SONY MUSIC', logo: null, images: [] },
-  { id: 'telemundo', name: 'TELEMUNDO', logo: null, images: [] },
-  { id: 't-mobile', name: 'T-MOBILE', logo: null, images: [] },
-  { id: 'toyota', name: 'Toyota', logo: '/logos/toyota.png', images: [] },
+  { id: 'telemundo', name: 'TELEMUNDO', logo: '/logos/Telemundo_idGQkJGENP_0.png', images: [] },
+  { id: 't-mobile', name: 'T-MOBILE', logo: '/logos/T-Mobile_Logo_1.png', images: [] },
+  { id: 'toyota', name: 'Toyota', logo: '/logos/toyota.png', images: [], whiteLogo: true },
 
-  { id: 'us-polo', name: 'US POLO ASSN', logo: null, images: [] },
-  { id: 'vanity-fair', name: 'VANITY FAIR', logo: null, images: [] },
-  { id: 'virgin-atlantic', name: 'VIRGIN ATLANTIC', logo: null, images: [] },
+  { id: 'us-polo', name: 'US POLO ASSN', logo: '/logos/US Polo Assn_idfVs8qm3r_0.png', images: [], whiteLogo: true },
+  { id: 'vanity-fair', name: 'VANITY FAIR', logo: '/logos/VANITY FAIR_idJhwFnd6x_0.png', images: [] },
+  { id: 'virgin-atlantic', name: 'VIRGIN ATLANTIC', logo: '/logos/Virgin Atlantic_idHiNfURAN_1.png', images: [] },
   { id: 'visa', name: 'VISA', logo: '/logos/visa.png', images: [] },
   { id: 'warner-bros', name: 'WB', logo: '/logos/warner-bros.png', images: [] },
 
@@ -62,6 +62,8 @@ const companies = [
   { id: 'chicos', name: "CHICO'S", logo: null, images: [] },
 
   { id: 'nike', name: 'Nike', logo: '/logos/nike.png', images: [] },
+  { id: 'ford', name: 'Ford', logo: '/logos/ford.png', images: [] },
+  { id: 'beneficiaries', name: 'Beneficiaries', logo: '/logos/Beneficiaries_idK5nvuwsL_1.png', images: [] },
 ];
 
 type Company = {
@@ -69,12 +71,15 @@ type Company = {
   name: string;
   logo: string | null;
   images: string[];
+  whiteLogo?: boolean;
 };
 
 export default function WorkPage() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const visibleCompanies = companies.filter(company => company.logo);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -148,12 +153,12 @@ export default function WorkPage() {
 
         {/* Companies Grid - Logo Display */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
-          {companies.map((company) => (
+          {visibleCompanies.map((company) => (
             <button
               key={company.id}
               onClick={() => openGallery(company)}
               disabled={company.images.length === 0}
-              className="company-logo group relative aspect-[2/1] bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-sm border border-white/10 rounded-lg overflow-hidden transition-all duration-300 hover:border-bulltech-pink/30 hover:from-white/[0.12] hover:to-white/[0.04] disabled:cursor-default"
+              className="company-logo group relative aspect-[2/1] bg-gradient-to-br from-white/[0.2] to-white/[0.1] backdrop-blur-sm border border-white/20 rounded-lg overflow-hidden transition-all duration-300 hover:border-bulltech-pink/30 hover:from-white/[0.25] hover:to-white/[0.15] disabled:cursor-default"
             >
               {/* Logo Image or Text Fallback */}
               <div className="absolute inset-0 flex items-center justify-center p-3">
@@ -163,7 +168,9 @@ export default function WorkPage() {
                     alt={company.name}
                     width={120}
                     height={60}
-                    className="w-full h-full object-contain opacity-70 group-hover:opacity-100 transition-opacity brightness-0 invert"
+                    className={`w-full h-full object-contain opacity-70 group-hover:opacity-100 transition-opacity ${
+                      company.whiteLogo ? 'brightness-0 invert' : ''
+                    }`}
                   />
                 ) : (
                   <span className="text-white/60 text-[10px] md:text-xs font-bold uppercase tracking-wider text-center leading-tight group-hover:text-white transition-colors">
@@ -189,16 +196,15 @@ export default function WorkPage() {
 
         {/* Note about logos */}
         <p className="text-center text-white/30 text-xs mt-8 uppercase tracking-widest">
-          {companies.length} Brands & Counting
+          40+ Brands & Counting
         </p>
 
         {/* Stats Section */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-20 pt-12 border-t border-white/10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-20 pt-12 border-t border-white/10">
           {[
-            { value: '50+', label: 'Projects Completed' },
-            { value: '30+', label: 'Happy Clients' },
-            { value: '10+', label: 'Years Combined Experience' },
             { value: '100%', label: 'Satisfaction Rate' },
+            { value: '30+', label: 'Years Combined Experience' },
+            { value: '700+', label: 'Projects Completed' },
           ].map((stat, index) => (
             <div key={index} className="text-center">
               <div className="text-4xl md:text-5xl font-black text-bulltech-pink mb-2">{stat.value}</div>

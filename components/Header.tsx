@@ -39,7 +39,7 @@ export default function Header() {
                 <Link 
                     key={item.label} 
                     href={item.href}
-                    className="relative px-6 py-2 text-[12px] font-bold uppercase tracking-[0.15em] text-gray-400 hover:text-white transition-colors group"
+                    className="relative px-6 py-2 text-[12px] font-bold uppercase tracking-[0.15em] text-gray-400 hover:text-bulltech-pink transition-colors group"
                 >
                     {item.label}
                     {/* Hover Dot */}

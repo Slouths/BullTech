@@ -8,11 +8,11 @@ export default function ContentSections() {
       {/* SECTION 1: INTRO (Dark) - High Contrast for Logo */}
       <section
         id="section1"
-        className="relative min-h-screen w-full flex flex-col items-center justify-center p-6 overflow-hidden"
+        className="relative min-h-screen w-full flex flex-col items-center justify-start p-6 pt-32 overflow-hidden"
         style={{ backgroundColor: '#080808' }}
       >
         {/* Centered Content Overlay */}
-        <div className="relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto space-y-16 mt-32 md:mt-24">
+        <div className="relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto space-y-8">
           
           {/* Main Headline */}
           <div className="space-y-6">
@@ -26,7 +26,7 @@ export default function ContentSections() {
           </div>
 
           {/* Philosophy - Centered Block */}
-          <div className="max-w-xl space-y-8 pt-16 md:pt-24">
+          <div className="max-w-xl space-y-8 pt-4">
             <div className="flex items-center justify-center gap-4 opacity-60">
                <span className="h-[1px] w-8 bg-white"></span>
                <span className="text-xs font-bold uppercase tracking-[0.3em] text-white">Our Philosophy</span>
@@ -45,13 +45,13 @@ export default function ContentSections() {
                 We don’t just operate machines; we collaborate, anticipate, and elevate.
               </p>
             </div>
+
+            {/* Scroll Indicator */}
+            <div className="animate-bounce text-white/50 text-sm font-bold uppercase tracking-[0.3em] pt-12 pointer-events-none text-center">
+              Scroll to Explore
+            </div>
           </div>
 
-        </div>
-
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce text-white/50 text-sm font-bold uppercase tracking-[0.3em] z-10 pointer-events-none text-center">
-          Scroll to Explore
         </div>
       </section>
 
@@ -99,11 +99,11 @@ export default function ContentSections() {
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-black/50 mb-6">Our systems are field-tested across:</p>
             <ul className="space-y-4">
               {[
-                'One-day studio shoots',
+                'One day location or studio shoots',
                 'High-volume advertising sets',
                 'Multi-week international productions',
                 'Underwater and marine shoots',
-                'Caribbean, Bahamas, Keys, and remote-location projects',
+                'South FL, FLORIDA KEYS, CARIBBEAN and remote locations',
               ].map((item, index) => (
                 <li key={index} className="flex items-center gap-3 text-black justify-center md:justify-end">
                   <span className="text-base">{item}</span>
@@ -114,7 +114,7 @@ export default function ContentSections() {
           </div>
 
           <p className="text-black text-lg leading-relaxed max-w-xl mt-4">
-            Whether the production calls for a single DT or a full technical team, we tailor the workflow to the scale and needs of your project.
+            Whether the production calls for a Single DT, DIT or a full technical team, we tailor the workflow to the scale and needs of your project.
           </p>
 
         </div>
@@ -152,8 +152,8 @@ export default function ContentSections() {
               </div>
               <div>
                 <h4 className="text-white mb-2 border-b border-white/10 pb-2">CONTACT</h4>
-                <p>hello@bulltech.miami</p>
-                <p>+1 (305) 522-7386</p>
+                <p>hello@bulldigital.tech</p>
+                <p className="whitespace-nowrap">+1 (305) 522-7386</p>
               </div>
             </div>
           </div>

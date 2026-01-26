@@ -1,0 +1,23 @@
+{
+  "pages": {
+    "/work/page": [
+      "static/chunks/[root-of-the-server]__647c7915._.css",
+      "static/chunks/978ba_next_44b50705._.js",
+      "static/chunks/web_BullTech_components_Header_tsx_6cc5491a._.js",
+      "static/chunks/web_BullTech_app_layout_tsx_0ce618d4._.js",
+      "static/chunks/978ba_next_dist_client_components_builtin_global-error_5a8f6864.js",
+      "static/chunks/978ba_gsap_730ab002._.js",
+      "static/chunks/web_BullTech_app_work_page_tsx_2f0e0265._.js",
+      "static/chunks/web_BullTech_app_work_page_tsx_5a8f6864._.js",
+      "static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_a271ddc3._.js",
+      "static/chunks/978ba_next_dist_compiled_react-dom_cc1a40de._.js",
+      "static/chunks/978ba_next_dist_compiled_next-devtools_index_bb716bb9.js",
+      "static/chunks/978ba_next_dist_compiled_e8231c74._.js",
+      "static/chunks/978ba_next_dist_client_cbb0aa2b._.js",
+      "static/chunks/978ba_next_dist_8b7dd6aa._.js",
+      "static/chunks/978ba_@swc_helpers_cjs_2e44d155._.js",
+      "static/chunks/web_BullTech_a0ff3932._.js",
+      "static/chunks/turbopack-web_BullTech_e0a7b438._.js"
+    ]
+  }
+}

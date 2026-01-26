@@ -128,6 +128,8 @@ export default function ContactPage() {
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   
+  const [isSuccess, setIsSuccess] = useState(false);
+
   // Manage which dropdown is open
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -219,11 +221,28 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Handle form submission here
-    setTimeout(() => {
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setIsSuccess(true);
+      } else {
+        const errorData = await response.json();
+        alert(`Failed to send message: ${errorData.message}`);
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('An error occurred. Please try again later.');
+    } finally {
       setIsSubmitting(false);
-      alert('Thank you for your submission!');
-    }, 1000);
+    }
   };
 
   const selectedServicesText = formData.services.length > 0
@@ -307,12 +326,12 @@ export default function ContactPage() {
               <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-bulltech-blue via-white to-bulltech-pink opacity-50"></div>
               
               <div className="relative mb-6">
-                <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white/10 p-1 bg-black">
+                <div className="w-24 h-24 rounded-full overflow-hidden">
                   <Image
                     src="/AF_Bulltech_Miami_Logo.webp"
                     alt="BullTech Logo"
-                    width={64}
-                    height={64}
+                    width={96}
+                    height={96}
                     className="w-full h-full object-cover rounded-full"
                   />
                 </div>
@@ -322,29 +341,32 @@ export default function ContactPage() {
               <p className="text-white/40 text-sm mb-6">WhatsApp Business Account</p>
 
               <div className="bg-white p-2 rounded-xl mb-2">
-                <img
-                  src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://wa.me/1786206499`}
+                <Image
+                  src="/whatsapp-qr.png"
                   alt="WhatsApp QR Code"
-                  className="w-48 h-48 object-contain mix-blend-multiply"
+                  width={200}
+                  height={200}
+                  className="w-48 h-48 object-contain"
+                  unoptimized
                 />
               </div>
             </div>
 
             {/* Week Weather Outcome Widget */}
             <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 max-w-sm">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-bulltech-blue to-bulltech-pink flex items-center justify-center overflow-hidden p-0.5">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-20 h-20 rounded-full overflow-hidden">
                   <Image
                     src="/AF_Bulltech_Miami_Logo.webp"
                     alt="BullTech Logo"
-                    width={40}
-                    height={40}
+                    width={80}
+                    height={80}
                     className="w-full h-full object-cover rounded-full"
                   />
                 </div>
                 <div>
-                  <p className="font-bold text-lg uppercase tracking-tight">Week Weather Outcome</p>
-                  <p className="text-xs text-white/60">Miami, FL</p>
+                  <p className="font-bold text-lg uppercase tracking-tight">Week Weather</p>
+                  <p className="font-bold text-lg uppercase tracking-tight">Miami, FL</p>
                 </div>
               </div>
 
@@ -373,40 +395,27 @@ export default function ContactPage() {
 
             {/* Live Sets Widget */}
             <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 max-w-sm">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-bulltech-pink to-bulltech-blue flex items-center justify-center">
-                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                  </svg>
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-20 h-20 rounded-full overflow-hidden">
+                  <Image
+                    src="/AF_Bulltech_Miami_Logo.webp"
+                    alt="BullTech Logo"
+                    width={80}
+                    height={80}
+                    className="w-full h-full object-cover rounded-full"
+                  />
                 </div>
                 <div>
-                  <p className="font-bold text-lg uppercase tracking-tight">Live Sets</p>
-                  <p className="text-xs text-white/60">Miami, FL</p>
+                  <p className="font-bold text-lg uppercase tracking-tight">Weather Livestream</p>
+                  <p className="font-bold text-lg uppercase tracking-tight">Miami, FL</p>
                 </div>
-              </div>
-
-              {/* Coral City Camera Embed */}
-              <div className="aspect-video rounded-lg overflow-hidden bg-black mb-4 border border-white/10 relative group">
-                 <iframe 
-                   width="100%" 
-                   height="100%" 
-                   src="https://www.youtube.com/embed/live_stream?channel=UCp-b2zZ0CB9NY_oWurKlWFg&autoplay=1&mute=1" 
-                   title="Coral City Camera" 
-                   frameBorder="0" 
-                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                   allowFullScreen
-                   className="absolute inset-0"
-                 ></iframe>
-                 <div className="absolute bottom-2 left-2 bg-black/60 backdrop-blur-md px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider text-white">
-                   Coral City • Underwater
-                 </div>
               </div>
 
               {/* Links to other cams */}
               <div className="space-y-2">
-                <p className="text-xs font-bold uppercase text-white/40 tracking-wider mb-2">Other Locations</p>
+                <p className="text-xs font-bold uppercase text-white/40 tracking-wider mb-2">Live Cams</p>
                 {[
-                  { name: 'Miami Beach (1st St & W Hotel)', url: 'https://www.miamiandbeaches.com/plan-your-trip/miami-webcams?wc=10' },
+                  { name: 'W South Beach Cam (Official)', url: 'https://www.miamiandbeaches.com/l/hotels/w-south-beach/488?category=1' },
                   { name: 'Key Biscayne (Virginia Key)', url: 'https://www.miamiandbeaches.com/plan-your-trip/miami-webcams' },
                   { name: 'Coconut Grove (Arya Hotel)', url: 'https://www.miamiandbeaches.com/plan-your-trip/miami-webcams' },
                 ].map((cam, i) => (
@@ -417,7 +426,7 @@ export default function ContactPage() {
                     rel="noopener noreferrer"
                     className="flex items-center justify-between p-3 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 transition-all group"
                   >
-                    <span className="text-sm font-medium text-white/80 group-hover:text-white">{cam.name}</span>
+                    <span className="text-sm font-medium text-white/80 group-hover:text-bulltech-pink">{cam.name}</span>
                     <svg className="w-4 h-4 text-white/40 group-hover:text-bulltech-pink transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                     </svg>
@@ -431,12 +440,31 @@ export default function ContactPage() {
           <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 md:p-12" ref={dropdownRef}>
             <p className="text-sm text-white/70 mb-8">
               Requests for services may be submitted through this form. You are also welcome to e-mail us directly at{' '}
-              <a href="mailto:info@bulldigital.com" className="text-bulltech-pink hover:underline">
-                info@bulldigital.com
+              <a href="mailto:hello@bulldigital.tech" className="text-bulltech-pink hover:underline">
+                hello@bulldigital.tech
               </a>.
             </p>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            {isSuccess ? (
+              <div className="bg-bulltech-pink/10 border border-bulltech-pink rounded-lg p-6 text-center animate-fade-in">
+                <div className="w-16 h-16 bg-bulltech-pink rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-2">Message Sent!</h3>
+                <p className="text-white/80 mb-6">
+                  Thank you for your inquiry. We have received your message and will get back to you shortly.
+                </p>
+                <button 
+                  onClick={() => setIsSuccess(false)}
+                  className="text-bulltech-pink hover:text-white transition-colors text-sm font-bold uppercase tracking-wider"
+                >
+                  Send Another Request
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-6">
               {/* Name Fields */}
               <div>
                 <label className="block text-sm font-bold uppercase tracking-wider mb-2">
@@ -678,6 +706,7 @@ export default function ContactPage() {
                 {isSubmitting ? 'Submitting...' : 'Submit'}
               </button>
             </form>
+            )}
           </div>
         </div>
       </div>

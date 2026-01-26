@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useLayoutEffect } from 'react';
 import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -13,7 +13,10 @@ export default function Logo() {
   const logoBlueRef = useRef<HTMLDivElement>(null);
   const logoPink2Ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  // Use useLayoutEffect to ensure DOM is fully calculated before setting up ScrollTrigger
+  const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+
+  useIsomorphicLayoutEffect(() => {
     if (typeof window === 'undefined') return;
 
     const section2 = document.getElementById('section2');
@@ -33,9 +36,10 @@ export default function Logo() {
           ease: 'none',
           scrollTrigger: {
             trigger: section2,
-            start: 'top bottom', 
+            start: 'top bottom',
             end: 'top top',
             scrub: true,
+            invalidateOnRefresh: true,
           },
         }
       );
@@ -52,10 +56,14 @@ export default function Logo() {
             start: 'top bottom',
             end: 'top top',
             scrub: true,
+            invalidateOnRefresh: true,
           },
         }
       );
     });
+
+    // Force a refresh to ensure all positions are correct
+    ScrollTrigger.refresh();
 
     return () => ctx.revert();
   }, []);
@@ -114,7 +122,7 @@ export default function Logo() {
                     <div 
                         className="absolute inset-0 w-full h-full"
                         style={{
-                            backgroundColor: '#6AC3DD', // Miami Cyan
+                            backgroundColor: '#4EC7E8', // Miami Cyan
                             maskImage: 'url("/AF_Bulltech_Miami_Stickers01_BW.webp")',
                             maskSize: '100% 100%',
                             maskRepeat: 'no-repeat',

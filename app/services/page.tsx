@@ -240,7 +240,7 @@ export default function ServicesPage() {
               {studioPackages.map((pkg) => (
                 <div
                   key={pkg.name}
-                  className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden transition-all duration-300"
+                  className="bg-white/5 backdrop-blur-sm border border-white/10 border-l-4 border-l-bulltech-pink rounded-2xl overflow-hidden transition-all duration-300"
                 >
                   {/* Collapsed Header - Always Visible */}
                   <button
