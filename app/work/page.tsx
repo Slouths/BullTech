@@ -147,7 +147,6 @@ export default function WorkPage() {
           </h1>
           <p className="work-title text-lg md:text-xl text-white/60 max-w-2xl leading-relaxed">
             We&apos;ve had the privilege of working with amazing brands and production teams.
-            Click on a logo to view our collaborative work.
           </p>
         </div>
 
@@ -207,7 +206,7 @@ export default function WorkPage() {
             { value: '700+', label: 'Projects Completed' },
           ].map((stat, index) => (
             <div key={index} className="text-center">
-              <div className="text-4xl md:text-5xl font-black text-bulltech-pink mb-2">{stat.value}</div>
+              <div className="text-4xl md:text-5xl font-black text-bulltech-blue mb-2">{stat.value}</div>
               <div className="text-xs uppercase tracking-[0.2em] text-white/50 leading-relaxed max-w-[150px] mx-auto">{stat.label}</div>
             </div>
           ))}

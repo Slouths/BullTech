@@ -11,7 +11,7 @@ const config: Config = {
       colors: {
         bulltech: {
           blue: '#4EC7E8',
-          pink: '#FF8FBE',
+          pink: '#E987B4',
           teal: '#138F9E',
           dark: '#111214',
           neon: '#16FFF0',

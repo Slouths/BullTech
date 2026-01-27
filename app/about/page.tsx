@@ -39,11 +39,11 @@ export default function AboutPage() {
   }, []);
 
   return (
-    <main ref={containerRef} className="bg-[#080808] min-h-screen text-white pt-32 pb-24 relative overflow-hidden">
+    <main ref={containerRef} className="bg-[#080808] min-h-screen text-white pt-24 pb-24 relative overflow-hidden">
 
       {/* Watermark Logo - Behind everything */}
       <div className="fixed inset-0 flex items-center justify-center pointer-events-none z-0">
-        <div className="w-[clamp(600px,90vw,1400px)] h-auto">
+        <div className="w-[85vw] md:w-[clamp(600px,90vw,1400px)] h-auto">
           <div className="relative w-full aspect-square">
             <Image
               src="/AF_Bulltech_Miami_Stickers01_BW.webp"
@@ -54,7 +54,7 @@ export default function AboutPage() {
               priority
             />
             <div
-              className="absolute inset-0 w-full h-full opacity-10"
+              className="absolute inset-0 w-full h-full opacity-70"
               style={{
                 backgroundColor: '#E987B4',
                 maskImage: 'url("/AF_Bulltech_Miami_Stickers01_BW.webp")',
@@ -75,21 +75,7 @@ export default function AboutPage() {
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-bulltech-pink/5 rounded-full blur-[200px] pointer-events-none z-0" />
       <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-bulltech-blue/5 rounded-full blur-[200px] pointer-events-none z-0" />
 
-      <div className="max-w-5xl mx-auto px-6 md:px-12 relative z-10">
-
-        {/* Logo Mark */}
-        <div className="flex justify-center mb-8">
-          <div className="w-16 h-16 relative">
-            <Image
-              src="/AF_Bulltech_Miami_Logo_BW.webp"
-              alt="BullTech"
-              width={64}
-              height={64}
-              className="w-full h-full object-contain opacity-60"
-            />
-            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[10px] border-t-bulltech-pink" />
-          </div>
-        </div>
+      <div className="max-w-5xl mx-auto px-6 md:px-12 relative z-10 pt-16">
 
         {/* Title */}
         <h1 className="about-title text-6xl md:text-8xl font-black uppercase tracking-tighter text-center mb-16 text-white">
@@ -109,6 +95,28 @@ export default function AboutPage() {
             With more than 30 years of professional experience in commercial and editorial photography, and a decade specializing in digital tech workflows, BullTech brings a rare combination of technical mastery, creative sensitivity, and rock-solid problem solving to every set—whether in the studio, on location, or underwater.
           </p>
 
+          {/* Philosophy Section */}
+          <div className="pt-12 space-y-8">
+            <div className="flex items-center justify-center gap-4 opacity-90">
+               <span className="h-[1px] w-8 bg-white"></span>
+               <span className="text-xs font-bold uppercase tracking-[0.3em] text-white">Our Philosophy</span>
+               <span className="h-[1px] w-8 bg-white"></span>
+            </div>
+            
+            <div className="space-y-6 text-white text-center">
+              <p className="about-content text-lg md:text-xl font-medium leading-relaxed">
+                At BullTech, we believe that great imagery is the product of both artistry and precision.
+              </p>
+              <p className="about-content text-base font-medium leading-relaxed">
+                Our role is to build the most stable, efficient, and bulletproof workflow for your project, so
+                that photographers and directors can focus entirely on the creative process.
+              </p>
+              <p className="about-content text-lg font-bold">
+                We don’t just operate machines; we collaborate, anticipate, and elevate.
+              </p>
+            </div>
+          </div>
+
         </div>
 
         {/* Stats Section */}
@@ -120,15 +128,15 @@ export default function AboutPage() {
             { value: '2022', label: 'Founded' },
           ].map((stat, index) => (
             <div key={index} className="about-stat text-center">
-              <div className="text-4xl md:text-5xl font-black text-bulltech-pink mb-2">{stat.value}</div>
-              <div className="text-xs uppercase tracking-[0.2em] text-white/50">{stat.label}</div>
+              <div className="text-4xl md:text-5xl font-black text-bulltech-blue mb-2">{stat.value}</div>
+              <div className="text-xs uppercase tracking-[0.2em] text-white/80">{stat.label}</div>
             </div>
           ))}
         </div>
 
         {/* Social Media Section */}
         <div className="mt-20 pt-12 border-t border-white/10">
-          <h2 className="about-content text-sm uppercase tracking-[0.3em] text-bulltech-pink text-center mb-8">Connect With Us</h2>
+          <h2 className="about-content text-sm uppercase tracking-[0.3em] text-bulltech-blue text-center mb-8">Connect With Us</h2>
           <div className="flex justify-center gap-8">
             {[
               { 
@@ -155,7 +163,9 @@ export default function AboutPage() {
               <a
                 key={index}
                 href={social.href}
-                className="social-icon w-12 h-12 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-bulltech-pink hover:bg-bulltech-pink hover:text-black hover:border-bulltech-pink hover:scale-110 transition-all duration-300"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-icon w-12 h-12 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-bulltech-blue hover:bg-bulltech-blue hover:text-black hover:border-bulltech-blue hover:scale-110 transition-all duration-300"
                 aria-label={social.name}
               >
                 <svg

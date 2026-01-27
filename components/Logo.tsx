@@ -69,12 +69,12 @@ export default function Logo() {
   }, []);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-[5] opacity-45">
+    <div className="fixed inset-0 pointer-events-none z-[5] opacity-80">
         
         {/* 1. Base Layer: Pink Logo (Visible on Section 1) */}
         {/* Full screen wrapper centering the logo */}
         <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-[clamp(600px,90vw,1400px)] h-auto gpu-layer">
+            <div className="w-[85vw] md:w-[clamp(600px,90vw,1400px)] h-auto gpu-layer">
                 <div className="relative w-full h-auto aspect-square">
                     <Image
                         src="/AF_Bulltech_Miami_Stickers01_BW.webp"
@@ -87,7 +87,7 @@ export default function Logo() {
                     <div 
                         className="absolute inset-0 w-full h-full"
                         style={{
-                            backgroundColor: '#E987B4', // Miami Pink
+                            backgroundColor: '#E987B4', // Miami Pink on Section 1
                             maskImage: 'url("/AF_Bulltech_Miami_Stickers01_BW.webp")',
                             maskSize: '100% 100%',
                             maskRepeat: 'no-repeat',
@@ -106,10 +106,10 @@ export default function Logo() {
         {/* Wrapper is full screen so clipPath 'inset(100%)' aligns with bottom of viewport */}
         <div
           ref={logoBlueRef}
-          className="absolute inset-0 flex items-center justify-center"
+          className="absolute inset-0 flex items-center justify-center gpu-layer"
           style={{ clipPath: 'inset(100% 0 0% 0)' }}
         >
-           <div className="w-[clamp(600px,90vw,1400px)] h-auto gpu-layer">
+           <div className="w-[85vw] md:w-[clamp(600px,90vw,1400px)] h-auto">
                 <div className="relative w-full h-auto aspect-square">
                     <Image
                         src="/AF_Bulltech_Miami_Stickers01_BW.webp"
@@ -122,7 +122,7 @@ export default function Logo() {
                     <div 
                         className="absolute inset-0 w-full h-full"
                         style={{
-                            backgroundColor: '#4EC7E8', // Miami Cyan
+                            backgroundColor: '#F0F0F0', // Off-white on Pink Section (Section 2)
                             maskImage: 'url("/AF_Bulltech_Miami_Stickers01_BW.webp")',
                             maskSize: '100% 100%',
                             maskRepeat: 'no-repeat',
@@ -140,10 +140,10 @@ export default function Logo() {
         {/* 3. Second Pink Layer (Revealed on Section 3) */}
         <div
           ref={logoPink2Ref}
-          className="absolute inset-0 flex items-center justify-center"
+          className="absolute inset-0 flex items-center justify-center gpu-layer"
           style={{ clipPath: 'inset(100% 0 0% 0)' }}
         >
-           <div className="w-[clamp(600px,90vw,1400px)] h-auto gpu-layer">
+           <div className="w-[85vw] md:w-[clamp(600px,90vw,1400px)] h-auto">
                 <div className="relative w-full h-auto aspect-square">
                     <Image
                         src="/AF_Bulltech_Miami_Stickers01_BW.webp"
@@ -156,7 +156,7 @@ export default function Logo() {
                     <div 
                         className="absolute inset-0 w-full h-full"
                         style={{
-                            backgroundColor: '#E987B4', // Miami Pink
+                            backgroundColor: '#4EC7E8', // Blue on Dark Section (Section 3)
                             maskImage: 'url("/AF_Bulltech_Miami_Stickers01_BW.webp")',
                             maskSize: '100% 100%',
                             maskRepeat: 'no-repeat',
