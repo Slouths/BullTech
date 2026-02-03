@@ -74,10 +74,10 @@ export default function Logo() {
         {/* 1. Base Layer: Pink Logo (Visible on Section 1) */}
         {/* Full screen wrapper centering the logo */}
         <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-[85vw] md:w-[clamp(600px,90vw,1400px)] h-auto gpu-layer">
+            <div className="w-[110vw] md:w-[clamp(800px,120vw,2000px)] h-auto gpu-layer">
                 <div className="relative w-full h-auto aspect-square">
                     <Image
-                        src="/AF_Bulltech_Miami_Stickers01_BW.webp"
+                        src="/AF_Bulltech_Miami_Stickers02_BW.webp"
                         alt="BullTech Miami Logo"
                         width={800}
                         height={800}
@@ -88,11 +88,11 @@ export default function Logo() {
                         className="absolute inset-0 w-full h-full"
                         style={{
                             backgroundColor: '#E987B4', // Miami Pink on Section 1
-                            maskImage: 'url("/AF_Bulltech_Miami_Stickers01_BW.webp")',
+                            maskImage: 'url("/AF_Bulltech_Miami_Stickers02_BW.webp")',
                             maskSize: '100% 100%',
                             maskRepeat: 'no-repeat',
                             maskPosition: 'center',
-                            WebkitMaskImage: 'url("/AF_Bulltech_Miami_Stickers01_BW.webp")',
+                            WebkitMaskImage: 'url("/AF_Bulltech_Miami_Stickers02_BW.webp")',
                             WebkitMaskSize: '100% 100%',
                             WebkitMaskRepeat: 'no-repeat',
                             WebkitMaskPosition: 'center',
@@ -109,10 +109,10 @@ export default function Logo() {
           className="absolute inset-0 flex items-center justify-center gpu-layer"
           style={{ clipPath: 'inset(100% 0 0% 0)' }}
         >
-           <div className="w-[85vw] md:w-[clamp(600px,90vw,1400px)] h-auto">
+           <div className="w-[110vw] md:w-[clamp(800px,120vw,2000px)] h-auto">
                 <div className="relative w-full h-auto aspect-square">
                     <Image
-                        src="/AF_Bulltech_Miami_Stickers01_BW.webp"
+                        src="/AF_Bulltech_Miami_Stickers02_BW.webp"
                         alt="BullTech Miami Logo"
                         width={800}
                         height={800}
@@ -123,11 +123,11 @@ export default function Logo() {
                         className="absolute inset-0 w-full h-full"
                         style={{
                             backgroundColor: '#F0F0F0', // Off-white on Pink Section (Section 2)
-                            maskImage: 'url("/AF_Bulltech_Miami_Stickers01_BW.webp")',
+                            maskImage: 'url("/AF_Bulltech_Miami_Stickers02_BW.webp")',
                             maskSize: '100% 100%',
                             maskRepeat: 'no-repeat',
                             maskPosition: 'center',
-                            WebkitMaskImage: 'url("/AF_Bulltech_Miami_Stickers01_BW.webp")',
+                            WebkitMaskImage: 'url("/AF_Bulltech_Miami_Stickers02_BW.webp")',
                             WebkitMaskSize: '100% 100%',
                             WebkitMaskRepeat: 'no-repeat',
                             WebkitMaskPosition: 'center',
@@ -143,10 +143,10 @@ export default function Logo() {
           className="absolute inset-0 flex items-center justify-center gpu-layer"
           style={{ clipPath: 'inset(100% 0 0% 0)' }}
         >
-           <div className="w-[85vw] md:w-[clamp(600px,90vw,1400px)] h-auto">
+           <div className="w-[110vw] md:w-[clamp(800px,120vw,2000px)] h-auto">
                 <div className="relative w-full h-auto aspect-square">
                     <Image
-                        src="/AF_Bulltech_Miami_Stickers01_BW.webp"
+                        src="/AF_Bulltech_Miami_Stickers02_BW.webp"
                         alt="BullTech Miami Logo"
                         width={800}
                         height={800}
@@ -157,11 +157,11 @@ export default function Logo() {
                         className="absolute inset-0 w-full h-full"
                         style={{
                             backgroundColor: '#4EC7E8', // Blue on Dark Section (Section 3)
-                            maskImage: 'url("/AF_Bulltech_Miami_Stickers01_BW.webp")',
+                            maskImage: 'url("/AF_Bulltech_Miami_Stickers02_BW.webp")',
                             maskSize: '100% 100%',
                             maskRepeat: 'no-repeat',
                             maskPosition: 'center',
-                            WebkitMaskImage: 'url("/AF_Bulltech_Miami_Stickers01_BW.webp")',
+                            WebkitMaskImage: 'url("/AF_Bulltech_Miami_Stickers02_BW.webp")',
                             WebkitMaskSize: '100% 100%',
                             WebkitMaskRepeat: 'no-repeat',
                             WebkitMaskPosition: 'center',

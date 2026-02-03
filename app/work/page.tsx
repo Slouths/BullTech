@@ -157,7 +157,7 @@ export default function WorkPage() {
               key={company.id}
               onClick={() => openGallery(company)}
               disabled={company.images.length === 0}
-              className="company-logo group relative aspect-[2/1] bg-gradient-to-br from-white/[0.2] to-white/[0.1] backdrop-blur-sm border border-white/20 rounded-lg overflow-hidden transition-all duration-300 hover:border-bulltech-pink/30 hover:from-white/[0.25] hover:to-white/[0.15] disabled:cursor-default"
+              className="company-logo group relative aspect-[2/1] bg-gradient-to-br from-white/[0.2] to-white/[0.1] backdrop-blur-sm border border-white/20 rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:border-bulltech-pink/50 hover:from-white/[0.3] hover:to-white/[0.2] hover:shadow-[0_0_20px_rgba(233,135,180,0.3)] disabled:cursor-default"
             >
               {/* Logo Image or Text Fallback */}
               <div className="absolute inset-0 flex items-center justify-center p-3">

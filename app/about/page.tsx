@@ -43,10 +43,10 @@ export default function AboutPage() {
 
       {/* Watermark Logo - Behind everything */}
       <div className="fixed inset-0 flex items-center justify-center pointer-events-none z-0">
-        <div className="w-[85vw] md:w-[clamp(600px,90vw,1400px)] h-auto">
+        <div className="w-[110vw] md:w-[clamp(800px,120vw,2000px)] h-auto">
           <div className="relative w-full aspect-square">
             <Image
-              src="/AF_Bulltech_Miami_Stickers01_BW.webp"
+              src="/AF_Bulltech_Miami_Stickers02_BW.webp"
               alt=""
               width={800}
               height={800}
@@ -57,11 +57,11 @@ export default function AboutPage() {
               className="absolute inset-0 w-full h-full opacity-70"
               style={{
                 backgroundColor: '#E987B4',
-                maskImage: 'url("/AF_Bulltech_Miami_Stickers01_BW.webp")',
+                maskImage: 'url("/AF_Bulltech_Miami_Stickers02_BW.webp")',
                 maskSize: '100% 100%',
                 maskRepeat: 'no-repeat',
                 maskPosition: 'center',
-                WebkitMaskImage: 'url("/AF_Bulltech_Miami_Stickers01_BW.webp")',
+                WebkitMaskImage: 'url("/AF_Bulltech_Miami_Stickers02_BW.webp")',
                 WebkitMaskSize: '100% 100%',
                 WebkitMaskRepeat: 'no-repeat',
                 WebkitMaskPosition: 'center',
@@ -72,8 +72,8 @@ export default function AboutPage() {
       </div>
 
       {/* Background Blur Elements */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-bulltech-pink/5 rounded-full blur-[200px] pointer-events-none z-0" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-bulltech-blue/5 rounded-full blur-[200px] pointer-events-none z-0" />
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-bulltech-pink/5 rounded-full blur-[200px] pointer-events-none z-0 animate-pulse-glow" />
+      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-bulltech-blue/5 rounded-full blur-[200px] pointer-events-none z-0 animate-pulse-glow" style={{ animationDelay: '2s' }} />
 
       <div className="max-w-5xl mx-auto px-6 md:px-12 relative z-10 pt-16">
 
@@ -83,35 +83,35 @@ export default function AboutPage() {
         </h1>
 
         {/* Main Content */}
-        <div className="space-y-8 max-w-3xl mx-auto">
+        <div className="space-y-12 max-w-4xl mx-auto">
 
           {/* Paragraph 1 */}
-          <p className="about-content text-lg md:text-xl leading-relaxed text-white font-medium">
+          <p className="about-content text-2xl md:text-3xl leading-relaxed text-white font-bold drop-shadow-xl" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)' }}>
             Founded in 2022, BullTech Miami was created with a single purpose: to deliver world-class digital capture, color-managed workflows, on-set support, and high-end equipment rentals to production teams, photographers, agencies, and brands who demand reliability, speed, and excellence.
           </p>
 
           {/* Paragraph 2 */}
-          <p className="about-content text-lg md:text-xl leading-relaxed text-white font-medium">
+          <p className="about-content text-2xl md:text-3xl leading-relaxed text-white font-bold drop-shadow-xl" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)' }}>
             With more than 30 years of professional experience in commercial and editorial photography, and a decade specializing in digital tech workflows, BullTech brings a rare combination of technical mastery, creative sensitivity, and rock-solid problem solving to every set—whether in the studio, on location, or underwater.
           </p>
 
           {/* Philosophy Section */}
-          <div className="pt-12 space-y-8">
+          <div className="pt-16 space-y-10">
             <div className="flex items-center justify-center gap-4 opacity-90">
-               <span className="h-[1px] w-8 bg-white"></span>
-               <span className="text-xs font-bold uppercase tracking-[0.3em] text-white">Our Philosophy</span>
-               <span className="h-[1px] w-8 bg-white"></span>
+               <span className="h-[2px] w-12 bg-white shadow-[0_0_10px_white]"></span>
+               <span className="text-sm font-black uppercase tracking-[0.3em] text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">Our Philosophy</span>
+               <span className="h-[2px] w-12 bg-white shadow-[0_0_10px_white]"></span>
             </div>
             
-            <div className="space-y-6 text-white text-center">
-              <p className="about-content text-lg md:text-xl font-medium leading-relaxed">
+            <div className="space-y-8 text-white text-center">
+              <p className="about-content text-2xl md:text-3xl font-bold leading-relaxed drop-shadow-xl" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)' }}>
                 At BullTech, we believe that great imagery is the product of both artistry and precision.
               </p>
-              <p className="about-content text-base font-medium leading-relaxed">
+              <p className="about-content text-xl md:text-2xl font-bold leading-relaxed drop-shadow-xl" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)' }}>
                 Our role is to build the most stable, efficient, and bulletproof workflow for your project, so
                 that photographers and directors can focus entirely on the creative process.
               </p>
-              <p className="about-content text-lg font-bold">
+              <p className="about-content text-2xl md:text-3xl font-black drop-shadow-2xl" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.9), 0 0 30px rgba(0,0,0,0.6)' }}>
                 We don’t just operate machines; we collaborate, anticipate, and elevate.
               </p>
             </div>
@@ -120,24 +120,24 @@ export default function AboutPage() {
         </div>
 
         {/* Stats Section */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-20 pt-12 border-t border-white/10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-24 pt-16 border-t border-white/10">
           {[
             { value: '100%', label: 'Reliability' },
             { value: '30+', label: 'Years Experience' },
             { value: '16+', label: 'Years Digital Tech' },
             { value: '2022', label: 'Founded' },
           ].map((stat, index) => (
-            <div key={index} className="about-stat text-center">
-              <div className="text-4xl md:text-5xl font-black text-bulltech-blue mb-2">{stat.value}</div>
-              <div className="text-xs uppercase tracking-[0.2em] text-white/80">{stat.label}</div>
+            <div key={index} className="about-stat text-center animate-float" style={{ animationDelay: `${index * 0.5}s` }}>
+              <div className="text-5xl md:text-7xl font-black text-bulltech-blue mb-4 drop-shadow-[0_0_15px_rgba(78,199,232,0.5)]">{stat.value}</div>
+              <div className="text-sm md:text-base font-bold uppercase tracking-[0.2em] text-white/90 drop-shadow-md">{stat.label}</div>
             </div>
           ))}
         </div>
 
         {/* Social Media Section */}
-        <div className="mt-20 pt-12 border-t border-white/10">
-          <h2 className="about-content text-sm uppercase tracking-[0.3em] text-bulltech-blue text-center mb-8">Connect With Us</h2>
-          <div className="flex justify-center gap-8">
+        <div className="mt-24 pt-16 border-t border-white/10">
+          <h2 className="about-content text-xl md:text-2xl font-black uppercase tracking-[0.3em] text-bulltech-blue text-center mb-12 drop-shadow-[0_0_10px_rgba(78,199,232,0.5)]">Connect With Us</h2>
+          <div className="flex justify-center gap-10">
             {[
               { 
                 name: 'Instagram', 
@@ -165,11 +165,11 @@ export default function AboutPage() {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="social-icon w-12 h-12 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-bulltech-blue hover:bg-bulltech-blue hover:text-black hover:border-bulltech-blue hover:scale-110 transition-all duration-300"
+                className="social-icon w-16 h-16 md:w-20 md:h-20 flex items-center justify-center rounded-full bg-white/5 border-2 border-white/10 text-bulltech-blue hover:bg-bulltech-blue hover:text-black hover:border-bulltech-blue hover:scale-110 transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.5)]"
                 aria-label={social.name}
               >
                 <svg
-                  className="w-5 h-5"
+                  className="w-8 h-8 md:w-10 md:h-10"
                   viewBox="0 0 24 24"
                   fill="currentColor"
                   xmlns="http://www.w3.org/2000/svg"

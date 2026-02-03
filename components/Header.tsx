@@ -25,11 +25,11 @@ export default function Header() {
           className="flex items-center justify-center w-20 h-20 rounded-full hover:scale-105 transition-transform group -ml-2"
         >
              <Image
-              src="/AF_Bulltech_Miami_Stickers02.png"
+              src="/AF_Bulltech_Miami_Sticker01.webp"
               alt="Home"
               width={80}
               height={80}
-              className="w-full h-full object-contain drop-shadow-lg"
+              className="w-full h-full object-contain drop-shadow-lg scale-125"
             />
         </Link>
 

@@ -192,9 +192,9 @@ export default function ServicesPage() {
 
   const workstationData = {
     heavyCarts: [
-      { model: 'Voyager 42', size: '42"', specs: 'Cart w/ middle shelf, acc. hooks, Premium 10" wheel' },
-      { model: 'Voyager 36', size: '36"', specs: 'Cart, accessory hooks, Premium 10" wheel upgrade' },
-      { model: 'AXIS', size: 'N/A', specs: 'Base station w/ WorkSurface Pro' },
+      { model: 'INOVATIV Voyager 42', size: '42"', specs: 'Cart w/ middle shelf, acc. hooks, Premium 10" wheel' },
+      { model: 'INOVATIV Voyager 36', size: '36"', specs: 'Cart, accessory hooks, Premium 10" wheel upgrade' },
+      { model: 'INOVATIV AXIS', size: 'N/A', specs: 'Base station w/ WorkSurface Pro' },
       { model: 'Proaim Victor V1.1', size: '42"', specs: 'Camera cart, accessory hooks' },
     ],
     portable: [
@@ -237,8 +237,8 @@ export default function ServicesPage() {
       { model: 'CG 2700S', size: '27"', specs: '27" 16:9 DISPLAY, VESA' },
     ],
     nec: [
-      { model: '', size: '27"', specs: '27" 16:9 4K DISPLAY, VESA' },
-      { model: '', size: '27"', specs: '27" 16:9 DISPLAY, VESA' },
+      { model: 'PA272UHD', size: '27"', specs: '27" 16:9 4K DISPLAY, VESA' },
+      { model: 'PA272W', size: '27"', specs: '27" 16:9 DISPLAY, VESA' },
     ],
     apple: [
       { model: 'STUDIO DISPLAY', size: '27"', specs: '27" RETINA DISPLAY 5K NR, VESA' },
@@ -249,9 +249,9 @@ export default function ServicesPage() {
       { model: '49L V640S-UB', size: '49"', specs: '49" VIDEO-VILLAGE DISPLAY, VESA' },
     ],
     accessories: [
-      { make: 'GELATIN', accessory: 'xLamina 13 2.0 - with Magnetic Carbon Shade' },
+      { make: 'GELATIN', accessory: 'xLamina 13 2.0 - with Magnetic Carbon Shade, Hood for iPad Pro' },
       { make: 'GELATIN', accessory: 'V Lock Universal Mount' },
-      { make: 'GELATIN', accessory: 'Carbon Shade Studio' },
+      { make: 'GELATIN', accessory: 'Carbon Shade Studio, 27" Portrait and Landscape Monitor Hood' },
       { make: 'INOVATIV', accessory: 'PRO MONITOR MOUNT' },
       { make: 'INOVATIV', accessory: 'QR PRO VESA SYSTEM' },
       { make: 'ACCSOON', accessory: 'PowerCage II' },
@@ -260,7 +260,7 @@ export default function ServicesPage() {
 
   const wirelessData = {
     teradek: [
-      { model: 'Teradek Ace 750 HDMI', specs: '750FT RANGE / HDMI WIRELESS VIDEO' },
+      { model: 'Spark 4K HDMI', specs: 'WIRELESS Video Transmitter/Receiver Set' },
     ],
     hollylandVideo: [
       { model: 'Mars M1', specs: 'WIRELESS MONITOR / TX / RX' },
@@ -510,20 +510,20 @@ export default function ServicesPage() {
             Equipment &<br/>Workflow<br/>Engineering
           </h1>
 
-          <div className="max-w-4xl space-y-6 text-lg leading-relaxed text-white/80">
-            <p>
+          <div className="max-w-4xl space-y-8 text-xl md:text-2xl leading-relaxed text-white/90">
+            <p className="font-medium">
               BullTech maintains a curated inventory of high-end digital equipment, including capture workstations, carts, monitors,
               lighting accessories, underwater systems, and backup architectures.
             </p>
-            <p>
+            <p className="font-medium">
               Every item is maintained, tested, and configured in-house to meet professional standards—ensuring reliability on
               demanding sets where downtime is not an option.
             </p>
-            <p className="font-medium text-white">
+            <p className="font-bold text-white text-2xl md:text-3xl mt-8">
               Because we oversee both the operation and the gear, our clients benefit from:
             </p>
 
-            <ul className="space-y-3 ml-6 list-disc">
+            <ul className="space-y-4 ml-6 list-disc font-bold marker:text-bulltech-pink">
               <li>Seamless integration</li>
               <li>Faster setups</li>
               <li>Fewer technical complications</li>
@@ -567,7 +567,7 @@ export default function ServicesPage() {
               {studioPackages.map((pkg) => (
                 <div
                   key={pkg.name}
-                  className="bg-white/5 backdrop-blur-sm border border-white/10 border-l-4 border-l-bulltech-pink rounded-2xl overflow-hidden transition-all duration-300"
+                  className="bg-white/5 backdrop-blur-sm border border-white/10 border-l-4 border-l-bulltech-pink rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.01] hover:border-bulltech-pink/50 hover:shadow-[0_0_30px_rgba(233,135,180,0.15)]"
                 >
                   {/* Collapsed Header - Always Visible */}
                   <button
@@ -626,7 +626,7 @@ export default function ServicesPage() {
               {locationPackages.map((pkg) => (
                 <div
                   key={pkg.name}
-                  className="bg-white/5 backdrop-blur-sm border border-white/10 border-l-4 border-l-bulltech-pink rounded-2xl overflow-hidden transition-all duration-300"
+                  className="bg-white/5 backdrop-blur-sm border border-white/10 border-l-4 border-l-bulltech-pink rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.01] hover:border-bulltech-pink/50 hover:shadow-[0_0_30px_rgba(233,135,180,0.15)]"
                 >
                   {/* Collapsed Header - Always Visible */}
                   <button
@@ -681,8 +681,8 @@ export default function ServicesPage() {
 
           {/* ADDITIONAL SERVICES Tab Content */}
           {activeTab === 'additional' && (
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 md:p-12">
-              <ul className="grid md:grid-cols-2 gap-x-12 gap-y-3 mb-8">
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 md:p-12 transition-all duration-300 hover:scale-[1.01] hover:border-bulltech-pink/50 hover:shadow-[0_0_30px_rgba(233,135,180,0.15)]">
+              <ul className="grid md:grid-cols-2 gap-x-12 gap-y-6 mb-10">
                 {[
                   'File retention',
                   'Post processing',
@@ -699,14 +699,14 @@ export default function ServicesPage() {
                   'WORKFLOWS CONSULTATION',
                   'Under Water Productions',
                 ].map((service, i) => (
-                  <li key={i} className="flex items-start gap-3 text-white/80">
+                  <li key={i} className="flex items-start gap-3 text-white text-lg md:text-xl font-bold">
                     <span className="text-bulltech-pink mt-1">•</span>
                     <span>{service}</span>
                   </li>
                 ))}
               </ul>
 
-              <p className="text-white/60 italic border-t border-white/10 pt-6">
+              <p className="text-white/80 italic text-lg md:text-xl border-t border-white/10 pt-8 font-medium">
                 Please ask us about our additional services, we are here to make your production a success.
               </p>
             </div>
@@ -722,14 +722,14 @@ export default function ServicesPage() {
             </h2>
           </div>
 
-          <p className="text-white/80 mb-12 leading-relaxed max-w-3xl">
+          <p className="text-white/90 mb-12 leading-relaxed max-w-3xl text-xl md:text-2xl font-medium">
             Our comprehensive inventory of digital equipment for on-set and post-production workflows.
           </p>
 
           {/* Equipment Categories List */}
           <div className="space-y-4 mb-12">
             {/* WORKSTATIONS Dropdown */}
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 border-l-4 border-l-bulltech-pink rounded-2xl overflow-hidden transition-all duration-300">
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 border-l-4 border-l-bulltech-pink rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.01] hover:border-bulltech-pink/50 hover:shadow-[0_0_30px_rgba(233,135,180,0.15)]">
               <button
                 onClick={() => toggleEquipment('WORKSTATIONS')}
                 className="w-full p-6 flex items-center justify-between hover:bg-white/5 transition-colors"
@@ -829,7 +829,7 @@ export default function ServicesPage() {
             </div>
 
             {/* MONITORS Dropdown */}
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 border-l-4 border-l-bulltech-pink rounded-2xl overflow-hidden transition-all duration-300">
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 border-l-4 border-l-bulltech-pink rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.01] hover:border-bulltech-pink/50 hover:shadow-[0_0_30px_rgba(233,135,180,0.15)]">
               <button
                 onClick={() => toggleEquipment('MONITORS')}
                 className="w-full p-6 flex items-center justify-between hover:bg-white/5 transition-colors"
@@ -985,7 +985,7 @@ export default function ServicesPage() {
             </div>
 
             {/* WIRELESS Dropdown */}
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 border-l-4 border-l-bulltech-pink rounded-2xl overflow-hidden transition-all duration-300">
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 border-l-4 border-l-bulltech-pink rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.01] hover:border-bulltech-pink/50 hover:shadow-[0_0_30px_rgba(233,135,180,0.15)]">
               <button
                 onClick={() => toggleEquipment('WIRELESS')}
                 className="w-full p-6 flex items-center justify-between hover:bg-white/5 transition-colors"
@@ -1007,7 +1007,7 @@ export default function ServicesPage() {
                   {/* TERADEK TABLE */}
                   <div>
                     <h4 className="text-lg font-bold uppercase tracking-wider mb-4 text-bulltech-pink">
-                      TERADEK – WIRELESS TRANSMITTERS
+                      TERADEK – VIDEO TRANSMITTERS
                     </h4>
                     <div className="overflow-x-auto">
                       <table className="w-full text-left text-sm md:text-base border-collapse">
@@ -1032,7 +1032,7 @@ export default function ServicesPage() {
                   {/* HOLLYLAND VIDEO TABLE */}
                   <div>
                     <h4 className="text-lg font-bold uppercase tracking-wider mb-4 text-bulltech-pink">
-                      HOLLYLAND – WIRELESS VIDEO
+                      HOLLYLAND – TRANSMITTERS
                     </h4>
                     <div className="overflow-x-auto">
                       <table className="w-full text-left text-sm md:text-base border-collapse">
@@ -1057,7 +1057,7 @@ export default function ServicesPage() {
                   {/* HOLLYLAND AUDIO TABLE */}
                   <div>
                     <h4 className="text-lg font-bold uppercase tracking-wider mb-4 text-bulltech-pink">
-                      HOLLYLAND – WIRELESS AUDIO
+                      HOLLYLAND – COMMUNICATIONS
                     </h4>
                     <div className="overflow-x-auto">
                       <table className="w-full text-left text-sm md:text-base border-collapse">
@@ -1133,7 +1133,7 @@ export default function ServicesPage() {
             </div>
 
             {/* BATTERIES Dropdown */}
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 border-l-4 border-l-bulltech-pink rounded-2xl overflow-hidden transition-all duration-300">
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 border-l-4 border-l-bulltech-pink rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.01] hover:border-bulltech-pink/50 hover:shadow-[0_0_30px_rgba(233,135,180,0.15)]">
               <button
                 onClick={() => toggleEquipment('BATTERIES')}
                 className="w-full p-6 flex items-center justify-between hover:bg-white/5 transition-colors"
@@ -1241,7 +1241,7 @@ export default function ServicesPage() {
             </h2>
           </div>
 
-          <p className="text-white/80 mb-12 leading-relaxed max-w-3xl">
+          <p className="text-white/90 mb-12 leading-relaxed max-w-3xl text-xl md:text-2xl font-medium">
             Professional photography equipment including cameras and underwater systems.
           </p>
 
@@ -1270,7 +1270,7 @@ export default function ServicesPage() {
             {activePhotoTab === 'camera' && (
               <div className="space-y-4">
                   {/* NIKON Dropdown */}
-                  <div className="bg-white/5 backdrop-blur-sm border border-white/10 border-l-4 border-l-bulltech-pink rounded-2xl overflow-hidden transition-all duration-300">
+                  <div className="bg-white/5 backdrop-blur-sm border border-white/10 border-l-4 border-l-bulltech-pink rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.01] hover:border-bulltech-pink/50 hover:shadow-[0_0_30px_rgba(233,135,180,0.15)]">
                     <button
                       onClick={() => toggleCameraSystem('NIKON')}
                       className="w-full p-6 flex items-center justify-between hover:bg-white/5 transition-colors"
@@ -1445,7 +1445,7 @@ export default function ServicesPage() {
                   </div>
 
                   {/* CANON Dropdown */}
-                  <div className="bg-white/5 backdrop-blur-sm border border-white/10 border-l-4 border-l-bulltech-pink rounded-2xl overflow-hidden transition-all duration-300 mt-4">
+                  <div className="bg-white/5 backdrop-blur-sm border border-white/10 border-l-4 border-l-bulltech-pink rounded-2xl overflow-hidden transition-all duration-300 mt-4 hover:scale-[1.01] hover:border-bulltech-pink/50 hover:shadow-[0_0_30px_rgba(233,135,180,0.15)]">
                     <button
                       onClick={() => toggleCameraSystem('CANON')}
                       className="w-full p-6 flex items-center justify-between hover:bg-white/5 transition-colors"
@@ -1570,7 +1570,7 @@ export default function ServicesPage() {
                   </div>
 
                   {/* FUJIFILM Dropdown */}
-                  <div className="bg-white/5 backdrop-blur-sm border border-white/10 border-l-4 border-l-bulltech-pink rounded-2xl overflow-hidden transition-all duration-300 mt-4">
+                  <div className="bg-white/5 backdrop-blur-sm border border-white/10 border-l-4 border-l-bulltech-pink rounded-2xl overflow-hidden transition-all duration-300 mt-4 hover:scale-[1.01] hover:border-bulltech-pink/50 hover:shadow-[0_0_30px_rgba(233,135,180,0.15)]">
                     <button
                       onClick={() => toggleCameraSystem('FUJIFILM')}
                       className="w-full p-6 flex items-center justify-between hover:bg-white/5 transition-colors"
@@ -1695,7 +1695,7 @@ export default function ServicesPage() {
                   </div>
 
                   {/* PHASE ONE Dropdown */}
-                  <div className="bg-white/5 backdrop-blur-sm border border-white/10 border-l-4 border-l-bulltech-pink rounded-2xl overflow-hidden transition-all duration-300 mt-4">
+                  <div className="bg-white/5 backdrop-blur-sm border border-white/10 border-l-4 border-l-bulltech-pink rounded-2xl overflow-hidden transition-all duration-300 mt-4 hover:scale-[1.01] hover:border-bulltech-pink/50 hover:shadow-[0_0_30px_rgba(233,135,180,0.15)]">
                     <button
                       onClick={() => toggleCameraSystem('PHASE ONE')}
                       className="w-full p-6 flex items-center justify-between hover:bg-white/5 transition-colors"
@@ -1822,7 +1822,7 @@ export default function ServicesPage() {
                   </div>
 
                   {/* HASSELBLAD Dropdown */}
-                  <div className="bg-white/5 backdrop-blur-sm border border-white/10 border-l-4 border-l-bulltech-pink rounded-2xl overflow-hidden transition-all duration-300 mt-4">
+                  <div className="bg-white/5 backdrop-blur-sm border border-white/10 border-l-4 border-l-bulltech-pink rounded-2xl overflow-hidden transition-all duration-300 mt-4 hover:scale-[1.01] hover:border-bulltech-pink/50 hover:shadow-[0_0_30px_rgba(233,135,180,0.15)]">
                     <button
                       onClick={() => toggleCameraSystem('HASSELBLAD')}
                       className="w-full p-6 flex items-center justify-between hover:bg-white/5 transition-colors"
@@ -1949,14 +1949,21 @@ export default function ServicesPage() {
               )}
 
               {activePhotoTab === 'underwater' && (
-                <div className="w-full py-24 border border-white/10 rounded-2xl bg-white/5 flex flex-col items-center justify-center space-y-6">
-                   <h3 className="text-3xl md:text-5xl font-black italic tracking-tighter text-white/40">
-                     COMING SOON
-                   </h3>
-                   <div className="flex space-x-2">
-                     <div className="w-3 h-3 bg-bulltech-pink rounded-full animate-bounce [animation-delay:-0.3s]"></div>
-                     <div className="w-3 h-3 bg-bulltech-pink rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-                     <div className="w-3 h-3 bg-bulltech-pink rounded-full animate-bounce"></div>
+                <div className="w-full py-24 border border-white/10 rounded-2xl bg-white/5 flex flex-col items-center justify-center space-y-8">
+                   <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 w-full px-6">
+                      <h3 className="text-4xl md:text-6xl font-black uppercase text-bulltech-pink opacity-80 animate-pulse">SEAFROG</h3>
+                      <h3 className="text-4xl md:text-6xl font-black uppercase text-bulltech-pink opacity-80 animate-pulse">OUTEX</h3>
+                      <h3 className="text-4xl md:text-6xl font-black uppercase text-bulltech-pink opacity-80 animate-pulse">IKELITE</h3>
+                   </div>
+                   <div className="flex flex-col items-center space-y-6 mt-8">
+                     <h3 className="text-3xl md:text-5xl font-black italic tracking-tighter text-white/40">
+                       COMING SOON
+                     </h3>
+                     <div className="flex space-x-2">
+                       <div className="w-3 h-3 bg-bulltech-pink rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                       <div className="w-3 h-3 bg-bulltech-pink rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                       <div className="w-3 h-3 bg-bulltech-pink rounded-full animate-bounce"></div>
+                     </div>
                    </div>
                 </div>
               )}
@@ -1971,12 +1978,12 @@ export default function ServicesPage() {
             </h2>
           </div>
 
-          <p className="text-white/80 mb-12 leading-relaxed max-w-3xl">
+          <p className="text-white/90 mb-12 leading-relaxed max-w-3xl text-xl md:text-2xl font-medium">
               Essential accessories and support equipment for every production.
             </p>
 
             {/* Essentials Dropdown */}
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 border-l-4 border-l-bulltech-pink rounded-2xl overflow-hidden transition-all duration-300">
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 border-l-4 border-l-bulltech-pink rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.01] hover:border-bulltech-pink/50 hover:shadow-[0_0_30px_rgba(233,135,180,0.15)]">
               <button
                 onClick={() => toggleEquipment('ESSENTIALS')}
                 className="w-full p-6 flex items-center justify-between hover:bg-white/5 transition-colors"
@@ -2017,11 +2024,9 @@ export default function ServicesPage() {
               )}
             </div>
 
-            <div className="bg-white/5 rounded-lg p-6 border border-white/10 mt-8">
-              <p className="text-white/60 italic">
+              <p className="text-white/80 italic text-lg md:text-xl border-t border-white/10 pt-8 mt-8 font-medium">
                 Complete essentials list and availability can be customized based on your production requirements.
               </p>
-            </div>
         </section>
 
         {/* Custom Sourcing Note */}
