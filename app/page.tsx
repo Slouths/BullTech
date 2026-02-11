@@ -9,7 +9,7 @@ export default function Home() {
       <Logo />
 
       {/* Main Content */}
-      <main className="relative w-full min-h-screen">
+      <main className="relative w-full min-w-0 min-h-screen overflow-x-hidden">
         {/* Scrolling Content Sections */}
         <ContentSections />
       </main>

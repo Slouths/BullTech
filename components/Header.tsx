@@ -15,18 +15,18 @@ export default function Header() {
 
   return (
     <>
-      <div className="fixed top-0 left-0 w-full flex justify-center pt-8 z-[10001] pointer-events-none">
+      <div className="fixed top-0 left-0 right-0 w-full flex justify-center pt-4 sm:pt-6 md:pt-8 px-2 sm:px-4 z-[10001] pointer-events-none">
         {/* 
           THE FLOATING CAPSULE 
           - High-tech, dark glass aesthetic
           - Centered and isolated
         */}
-        <nav className="pointer-events-auto flex items-center gap-3 md:gap-2 p-3 md:p-2.5 md:pl-3 bg-[#0A0A0A]/90 backdrop-blur-md border border-white/10 rounded-full shadow-2xl ring-1 ring-white/5 transition-transform hover:scale-[1.01] duration-300">
+        <nav className="pointer-events-auto flex items-center gap-2 sm:gap-3 md:gap-2 p-2 sm:p-3 md:p-2.5 md:pl-3 bg-[#0A0A0A]/90 backdrop-blur-md border border-white/10 rounded-full shadow-2xl ring-1 ring-white/5 transition-transform hover:scale-[1.01] duration-300 max-w-[calc(100vw-1rem)]">
           
           {/* Logo Orb */}
           <Link
             href="/"
-            className="flex items-center justify-center w-16 h-16 md:w-20 md:h-20 rounded-full hover:scale-105 transition-transform group -ml-2"
+            className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 md:w-20 md:h-20 rounded-full hover:scale-105 transition-transform group -ml-1 sm:-ml-2 shrink-0"
           >
                <Image
                 src="/AF_Bulltech_Miami_Sticker01.webp"

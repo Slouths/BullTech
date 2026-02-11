@@ -20,6 +20,12 @@ export const metadata: Metadata = {
   description: "Innovative technology services designed for modern businesses in the heart of Miami.",
 };
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{

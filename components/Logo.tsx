@@ -11,7 +11,7 @@ if (typeof window !== 'undefined') {
 
 export default function Logo() {
   const logoBlueRef = useRef<HTMLDivElement>(null);
-  const logoPink2Ref = useRef<HTMLDivElement>(null);
+  // const logoPink2Ref = useRef<HTMLDivElement>(null);
 
   // Use useLayoutEffect to ensure DOM is fully calculated before setting up ScrollTrigger
   const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
@@ -22,7 +22,7 @@ export default function Logo() {
     const section2 = document.getElementById('section2');
     const section3 = document.getElementById('section3');
 
-    if (!section2 || !section3 || !logoBlueRef.current || !logoPink2Ref.current) return;
+    if (!section2 || !section3 || !logoBlueRef.current) return;
 
     const ctx = gsap.context(() => {
       // 1. Initial State: Pink Logo is fully visible on Section 1 (Base Layer)
@@ -44,12 +44,11 @@ export default function Logo() {
         }
       );
 
-      // 3. Transition back to Pink (Section 3 enters)
-      gsap.fromTo(
-        logoPink2Ref.current,
-        { clipPath: 'inset(100% 0 0% 0)' },
+      // 3. Hide Blue Logo (Section 3 enters)
+      gsap.to(
+        logoBlueRef.current,
         {
-          clipPath: 'inset(0% 0 0% 0)',
+          clipPath: 'inset(0% 0 100% 0)',
           ease: 'none',
           scrollTrigger: {
             trigger: section3,
@@ -109,7 +108,7 @@ export default function Logo() {
           className="absolute inset-0 flex items-center justify-center gpu-layer"
           style={{ clipPath: 'inset(100% 0 0% 0)' }}
         >
-           <div className="w-[110vw] md:w-[clamp(800px,120vw,2000px)] h-auto">
+           <div className="w-[90vw] sm:w-[95vw] md:w-[min(120vw,2000px)] h-auto max-w-full min-w-0">
                 <div className="relative w-full h-auto aspect-square">
                     <Image
                         src="/AF_Bulltech_Miami_Stickers02_BW.webp"
@@ -137,39 +136,8 @@ export default function Logo() {
            </div>
         </div>
 
-        {/* 3. Second Pink Layer (Revealed on Section 3) */}
-        <div
-          ref={logoPink2Ref}
-          className="absolute inset-0 flex items-center justify-center gpu-layer"
-          style={{ clipPath: 'inset(100% 0 0% 0)' }}
-        >
-           <div className="w-[110vw] md:w-[clamp(800px,120vw,2000px)] h-auto">
-                <div className="relative w-full h-auto aspect-square">
-                    <Image
-                        src="/AF_Bulltech_Miami_Stickers02_BW.webp"
-                        alt="BullTech Miami Logo"
-                        width={800}
-                        height={800}
-                        className="w-full h-auto opacity-0" 
-                        priority
-                    />
-                    <div 
-                        className="absolute inset-0 w-full h-full"
-                        style={{
-                            backgroundColor: '#4EC7E8', // Blue on Dark Section (Section 3)
-                            maskImage: 'url("/AF_Bulltech_Miami_Stickers02_BW.webp")',
-                            maskSize: '100% 100%',
-                            maskRepeat: 'no-repeat',
-                            maskPosition: 'center',
-                            WebkitMaskImage: 'url("/AF_Bulltech_Miami_Stickers02_BW.webp")',
-                            WebkitMaskSize: '100% 100%',
-                            WebkitMaskRepeat: 'no-repeat',
-                            WebkitMaskPosition: 'center',
-                        }}
-                    />
-                </div>
-           </div>
-        </div>
+        {/* 3. Second Pink Layer (Revealed on Section 3) - REMOVED */}
+
 
     </div>
   );
