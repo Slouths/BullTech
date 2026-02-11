@@ -1,28 +1,83 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import Link from 'next/link';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 export default function ContentSections() {
+  const section1Ref = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
+  const section2Ref = useRef<HTMLElement>(null);
+  const section2ContentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Parallax Effect for Hero Section
+    if (section1Ref.current && videoRef.current && textRef.current) {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section1Ref.current,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true,
+        },
+      });
+
+      // Video moves slower than scroll (parallax) and fades out
+      tl.to(videoRef.current, {
+        yPercent: 50,
+        opacity: 0,
+        ease: 'none',
+      }, 0);
+
+      // Text moves faster than scroll and fades out
+      tl.to(textRef.current, {
+        yPercent: -50,
+        opacity: 0,
+        ease: 'none',
+      }, 0);
+    }
+
+    // Reveal Animation for Section 2 Content
+    if (section2Ref.current && section2ContentRef.current) {
+      gsap.fromTo(
+        section2ContentRef.current.children,
+        { y: 100, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          stagger: 0.1,
+          duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: section2Ref.current,
+            start: 'top 60%', // Start animation when top of section hits 60% of viewport
+            end: 'top 20%',
+            toggleActions: 'play none none reverse',
+          },
+        }
+      );
+    }
+  }, []);
+
   return (
     <>
       {/* SECTION 1: INTRO (Dark) - High Contrast for Logo */}
       <section
         id="section1"
-        className="relative min-h-screen w-full flex flex-col items-center justify-start p-6 pt-48 overflow-hidden"
+        ref={section1Ref}
+        className="relative min-h-[80vh] w-full flex flex-col items-center justify-end p-6 pb-32 md:pb-16 overflow-hidden"
         style={{ backgroundColor: '#080808' }}
       >
-        {/* Floating Background Orbs - Re-added for creative flair */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-            <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-bulltech-pink/10 rounded-full blur-[100px] animate-pulse-glow" />
-            <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-bulltech-blue/10 rounded-full blur-[120px] animate-pulse-glow" style={{ animationDelay: '2s' }} />
-        </div>
-
         {/* Centered Content Overlay */}
         <div className="relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto space-y-8">
           
           {/* Main Headline */}
           <div className="space-y-6 animate-float">
-            <h1 className="text-4xl sm:text-5xl md:text-8xl font-black uppercase tracking-tighter leading-[0.85] text-[#F0F0F0]">
+            <h1 className="text-4xl sm:text-6xl md:text-8xl font-black uppercase tracking-tighter leading-[0.85] text-[#F0F0F0]">
               Miami Based<br/>
               Digital Operators
             </h1>
@@ -31,20 +86,31 @@ export default function ContentSections() {
             </p>
           </div>
 
-          {/* Scroll Indicator */}
-          <div className="max-w-xl space-y-8 pt-4">
-            <div className="animate-bounce text-white/90 text-sm font-bold uppercase tracking-[0.3em] pt-[28rem] pointer-events-none text-center">
-              Scroll to Explore
-            </div>
+          {/* Scroll Indicator - Removed */}
+          <div className="max-w-xl space-y-8 pt-4 hidden">
           </div>
 
+        </div>
+
+        {/* Hero Video */}
+        <div ref={videoRef} className="absolute inset-0 flex items-center justify-center z-[6] pointer-events-none -translate-y-[5vh]">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-[220vw] md:w-[90vw] h-auto object-contain"
+          >
+            <source src="/logo_3.webm" type="video/webm" />
+          </video>
         </div>
       </section>
 
       {/* SECTION 2: WHAT WE DO (Pink) */}
       <section
         id="section2"
-        className="relative min-h-screen w-full flex items-center justify-center px-4 md:px-12 overflow-hidden bg-bulltech-pink"
+        ref={section2Ref}
+        className="relative min-h-[80vh] w-full flex items-center justify-center px-4 md:px-12 overflow-hidden bg-bulltech-pink"
       >
         {/* Background Pattern - Subtle Dot Grid (White) */}
         <div
@@ -64,7 +130,7 @@ export default function ContentSections() {
         </div>
 
         {/* Centered Content */}
-        <div className="w-full max-w-4xl z-10 flex flex-col gap-12 text-center items-center mt-20 md:mt-0 mx-auto px-6">
+        <div ref={section2ContentRef} className="w-full max-w-4xl z-10 flex flex-col gap-12 text-center items-center mt-20 md:mt-0 mx-auto px-6">
 
           <div className="space-y-6">
              <div className="flex items-center gap-4 justify-center">
@@ -109,7 +175,7 @@ export default function ContentSections() {
       {/* SECTION 3: BOOKING (Dark) - Cyber / Technical Interface */}
       <section
         id="section3"
-        className="relative min-h-screen w-full flex items-center px-6 md:px-12 overflow-hidden bg-bulltech-dark"
+        className="relative min-h-[80vh] w-full flex items-center px-6 md:px-12 overflow-hidden bg-bulltech-dark"
       >
         {/* Background - Gradient Mesh */}
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-bulltech-pink/5 blur-[100px] rounded-full pointer-events-none" />

@@ -71,9 +71,9 @@ export default function Logo() {
   return (
     <div className="fixed inset-0 pointer-events-none z-[5] opacity-80">
         
-        {/* 1. Base Layer: Pink Logo (Visible on Section 1) */}
+        {/* 1. Base Layer: Pink Logo (Visible on Section 1) - HIDDEN for Hero Section */}
         {/* Full screen wrapper centering the logo */}
-        <div className="absolute inset-0 flex items-center justify-center">
+        <div className="absolute inset-0 flex items-center justify-center hidden">
             <div className="w-[110vw] md:w-[clamp(800px,120vw,2000px)] h-auto gpu-layer">
                 <div className="relative w-full h-auto aspect-square">
                     <Image

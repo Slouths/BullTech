@@ -376,8 +376,13 @@ export default function ContactPage() {
                     <div key={i} className="flex items-center justify-between text-sm py-2 border-b border-white/5 last:border-0">
                       <div className="w-12 font-medium text-white/80">{day.day}</div>
                       <div className="text-xl">
-                        {day.code >= 0 && day.code <= 3 ? '☀️' : 
-                         day.code >= 51 ? '🌧️' : '☁️'}
+                        {day.code >= 0 && day.code <= 3 ? (
+                          <span className="inline-block animate-spin-slow origin-center">☀️</span>
+                        ) : day.code >= 51 ? (
+                          <span className="inline-block animate-float">🌧️</span>
+                        ) : (
+                          <span className="inline-block animate-float">☁️</span>
+                        )}
                       </div>
                       <div className="flex gap-3 font-mono">
                         <span className="text-white">{day.max}°</span>
