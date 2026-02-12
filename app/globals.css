@@ -21,11 +21,13 @@
     /* Large hero text: 3rem (48px) min, scales to 7rem (112px) max */
     font-size: clamp(3rem, 10vw + 1rem, 7rem);
     line-height: 0.9;
+    font-weight: 900;
   }
   .text-fluid-hero-sm {
     /* Subtitle: 1.1rem (17.6px) min, scales to 1.5rem (24px) max */
     font-size: clamp(1.1rem, 2vw + 0.8rem, 1.5rem);
     line-height: 1.2;
+    font-weight: 800;
   }
   .text-fluid-h2 {
     /* Section headings: 2rem (32px) min, scales to 4rem (64px) max */

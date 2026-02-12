@@ -11,7 +11,7 @@ export async function POST(request: Request) {
       email,
       subject,
       message,
-      services,
+      services = [],
       otherService,
       shootLocation,
       shootLocationDetails,
@@ -61,7 +61,7 @@ ${message}
 
 ---
 Service Details:
-Workflow: ${services.join(', ')}${otherService ? ` (${otherService})` : ''}
+Workflow: ${Array.isArray(services) ? services.join(', ') : ''}${otherService ? ` (${otherService})` : ''}
 Shoot Location: ${shootLocation} ${shootLocationDetails ? `(${shootLocationDetails})` : ''}
 Location Type: ${locationType}
 Shoot Type: ${shootType}
@@ -79,7 +79,7 @@ Budget: ${budget}
         <hr/>
         <h3>Service Details</h3>
         <ul>
-          <li><strong>Workflow:</strong> ${services.join(', ')}${otherService ? ` (${otherService})` : ''}</li>
+          <li><strong>Workflow:</strong> ${Array.isArray(services) ? services.join(', ') : ''}${otherService ? ` (${otherService})` : ''}</li>
           <li><strong>Shoot Location:</strong> ${shootLocation} ${shootLocationDetails ? `(${shootLocationDetails})` : ''}</li>
           <li><strong>Location Type:</strong> ${locationType}</li>
           <li><strong>Shoot Type:</strong> ${shootType}</li>

@@ -22,11 +22,9 @@ export default function Logo() {
     const section2 = document.getElementById('section2');
     const section3 = document.getElementById('section3');
 
-    if (!section2 || !section3 || !logoBlueRef.current) return;
+    if (!section2 || !logoBlueRef.current) return;
 
     const ctx = gsap.context(() => {
-      // 1. Initial State: Pink Logo is fully visible on Section 1 (Base Layer)
-
       // 2. Transition to Blue (Section 2 enters)
       gsap.fromTo(
         logoBlueRef.current,
@@ -44,21 +42,23 @@ export default function Logo() {
         }
       );
 
-      // 3. Hide Blue Logo (Section 3 enters)
-      gsap.to(
-        logoBlueRef.current,
-        {
-          clipPath: 'inset(0% 0 100% 0)',
-          ease: 'none',
-          scrollTrigger: {
-            trigger: section3,
-            start: 'top bottom',
-            end: 'top top',
-            scrub: true,
-            invalidateOnRefresh: true,
-          },
-        }
-      );
+      // 3. Hide Blue Logo (Section 3 enters) - only if section3 exists
+      if (section3) {
+        gsap.to(
+          logoBlueRef.current,
+          {
+            clipPath: 'inset(0% 0 100% 0)',
+            ease: 'none',
+            scrollTrigger: {
+              trigger: section3,
+              start: 'top bottom',
+              end: 'top top',
+              scrub: true,
+              invalidateOnRefresh: true,
+            },
+          }
+        );
+      }
     });
 
     // Force a refresh to ensure all positions are correct

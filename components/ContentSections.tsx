@@ -83,7 +83,7 @@ export default function ContentSections() {
         style={{ backgroundColor: 'black' }}
       >
         {/* Centered Content Overlay */}
-        <div className="relative z-10 flex flex-col items-center text-center max-w-4xl w-full min-w-0 mx-auto space-y-6 sm:space-y-8">
+        <div ref={textRef} className="relative z-10 flex flex-col items-center text-center max-w-4xl w-full min-w-0 mx-auto space-y-6 sm:space-y-8">
           
           {/* Main Headline */}
           <div className="space-y-4 sm:space-y-6 animate-float w-full min-w-0 overflow-hidden">
@@ -102,8 +102,8 @@ export default function ContentSections() {
 
         </div>
 
-        {/* Hero Video - anchored to top, directly under menu bar */}
-        <div ref={videoRef} className="absolute top-[10%] sm:top-[-5%] left-0 right-0 bottom-0 flex justify-center z-[6] pointer-events-none">
+        {/* Hero Video - placed in flow to prevent overlap */}
+        <div ref={videoRef} className="relative w-full flex justify-center z-[6] pointer-events-none mt-[-10rem] sm:mt-[-12rem] md:mt-[-14rem]">
           <video
             autoPlay
             loop

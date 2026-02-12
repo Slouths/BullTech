@@ -21,18 +21,18 @@ export default function Header() {
           - High-tech, dark glass aesthetic
           - Centered and isolated
         */}
-        <nav className="pointer-events-auto flex items-center gap-2 sm:gap-3 md:gap-2 p-2 sm:p-3 md:p-2.5 md:pl-3 bg-[#0A0A0A]/90 backdrop-blur-md border border-white/10 rounded-full shadow-2xl ring-1 ring-white/5 transition-transform hover:scale-[1.01] duration-300 max-w-[calc(100vw-1rem)]">
+        <nav className="pointer-events-auto flex items-center gap-3 sm:gap-3 md:gap-2 p-3 sm:p-3 md:p-2.5 md:pl-3 bg-[#0A0A0A]/90 backdrop-blur-md border border-white/10 rounded-full shadow-2xl ring-1 ring-white/5 transition-transform hover:scale-[1.01] duration-300 max-w-[calc(100vw-1rem)]">
           
           {/* Logo Orb */}
           <Link
             href="/"
-            className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 md:w-20 md:h-20 rounded-full hover:scale-105 transition-transform group -ml-1 sm:-ml-2 shrink-0"
+            className="flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full hover:scale-105 transition-transform group -ml-1 sm:-ml-2 shrink-0"
           >
                <Image
                 src="/AF_Bulltech_Miami_Sticker01.webp"
                 alt="Home"
-                width={80}
-                height={80}
+                width={96}
+                height={96}
                 className="w-full h-full object-contain drop-shadow-lg scale-125"
               />
           </Link>
@@ -43,7 +43,7 @@ export default function Header() {
                   <Link 
                       key={item.label} 
                       href={item.href}
-                      className="relative px-6 py-2 text-[12px] font-bold uppercase tracking-[0.15em] text-gray-400 hover:text-bulltech-pink transition-colors group"
+                      className="relative px-6 py-2 text-[14px] font-black uppercase tracking-[0.15em] text-gray-400 hover:text-bulltech-pink transition-colors group"
                   >
                       {item.label}
                       {/* Hover Dot */}
@@ -58,7 +58,7 @@ export default function Header() {
           {/* Action Button */}
           <Link 
               href="/contact"
-              className="hidden md:flex items-center gap-2 px-8 py-3.5 bg-bulltech-blue hover:bg-bulltech-pink text-black text-[12px] font-bold uppercase tracking-widest rounded-full transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,143,190,0.4)]"
+              className="hidden md:flex items-center gap-2 px-8 py-3.5 bg-bulltech-blue hover:bg-bulltech-pink text-black text-[14px] font-black uppercase tracking-widest rounded-full transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,143,190,0.4)]"
           >
               <span>Contact Now</span>
               <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg" className="opacity-60">
@@ -69,7 +69,7 @@ export default function Header() {
           {/* Mobile Menu Toggle */}
           <button 
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden flex items-center justify-center w-14 h-14 bg-white/5 rounded-full border border-white/10 text-white"
+            className="md:hidden flex items-center justify-center w-16 h-16 bg-white/5 rounded-full border border-white/10 text-white"
           >
             {isMobileMenuOpen ? (
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
