@@ -86,17 +86,17 @@ export default function Header() {
 
       {/* Mobile Menu Overlay */}
       <div 
-        className={`fixed inset-0 bg-black/95 backdrop-blur-xl z-[10000] transition-all duration-500 flex flex-col justify-center items-center ${
+        className={`fixed inset-0 bg-black/95 backdrop-blur-xl z-[10000] transition-all duration-500 flex flex-col justify-center items-center overflow-y-auto ${
           isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
       >
-        <div className="flex flex-col items-center gap-8">
+        <div className="flex flex-col items-center gap-8 min-h-[min(100vh,600px)] py-8">
           {navItems.map((item, i) => (
             <Link 
               key={item.label} 
               href={item.href}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="text-3xl font-black uppercase tracking-wider text-white hover:text-bulltech-pink transition-colors"
+              className="text-3xl sm:text-4xl font-black uppercase tracking-wider text-white hover:text-bulltech-pink transition-colors p-2"
               style={{ transitionDelay: `${i * 100}ms` }}
             >
               {item.label}
@@ -106,7 +106,7 @@ export default function Header() {
           <Link 
             href="/contact"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="text-2xl font-bold uppercase tracking-widest text-bulltech-blue hover:text-white transition-colors"
+            className="text-2xl sm:text-3xl font-bold uppercase tracking-widest text-bulltech-blue hover:text-white transition-colors p-2"
           >
             Contact Now
           </Link>

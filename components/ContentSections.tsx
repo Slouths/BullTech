@@ -1,9 +1,19 @@
 'use client';
 
+import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+const images = [
+  '/LOOK-7_0005.png',
+  '/IMG_8215.png',
+  '/IMG_7518.png',
+  '/IMG_0684.png',
+  '/IMG_0086.png',
+  '/FullSizeRender.png',
+];
 
 export default function ContentSections() {
   const section1Ref = useRef<HTMLElement>(null);
@@ -69,11 +79,11 @@ export default function ContentSections() {
       <section
         id="section1"
         ref={section1Ref}
-        className="relative min-h-screen w-full min-w-0 flex flex-col items-center justify-end p-4 sm:p-6 pb-24 sm:pb-32 md:pb-16 overflow-hidden"
+        className="relative min-h-[100dvh] w-full min-w-0 flex flex-col items-center justify-start pt-32 sm:pt-40 px-6 pb-24 sm:pb-32 md:pb-16 overflow-hidden"
         style={{ backgroundColor: 'black' }}
       >
         {/* Centered Content Overlay */}
-        <div className="relative z-10 flex flex-col items-center text-center max-w-4xl w-full min-w-0 mx-auto px-2 sm:px-4 space-y-6 sm:space-y-8">
+        <div className="relative z-10 flex flex-col items-center text-center max-w-4xl w-full min-w-0 mx-auto space-y-6 sm:space-y-8">
           
           {/* Main Headline */}
           <div className="space-y-4 sm:space-y-6 animate-float w-full min-w-0 overflow-hidden">
@@ -93,7 +103,7 @@ export default function ContentSections() {
         </div>
 
         {/* Hero Video - anchored to top, directly under menu bar */}
-        <div ref={videoRef} className="absolute top-0 left-0 right-0 bottom-0 flex justify-center z-[6] pointer-events-none pt-[3.75rem]">
+        <div ref={videoRef} className="absolute top-[10%] sm:top-[-5%] left-0 right-0 bottom-0 flex justify-center z-[6] pointer-events-none">
           <video
             autoPlay
             loop
@@ -112,7 +122,7 @@ export default function ContentSections() {
       <section
         id="section2"
         ref={section2Ref}
-        className="relative min-h-screen w-full min-w-0 flex items-center justify-center px-4 sm:px-6 md:px-12 overflow-hidden bg-bulltech-pink"
+        className="relative min-h-screen w-full min-w-0 flex items-center justify-center px-6 sm:px-8 md:px-12 py-20 overflow-hidden bg-bulltech-pink"
       >
         {/* Background Pattern - Subtle Dot Grid (White) */}
         <div
@@ -151,7 +161,7 @@ export default function ContentSections() {
 
           <div className="w-full max-w-3xl mx-auto">
             <p className="text-fluid-body font-black uppercase tracking-[0.2em] text-black mb-6 sm:mb-8 text-center">Our systems are field-tested across:</p>
-            <ul className="space-y-4">
+            <ul className="space-y-4 sm:space-y-3">
               {[
                 'One day location or studio shoots',
                 'High-volume advertising sets',
@@ -159,9 +169,9 @@ export default function ContentSections() {
                 'Underwater and marine shoots',
                 'South FL, FLORIDA KEYS, CARIBBEAN and remote locations',
               ].map((item, index) => (
-                <li key={index} className="flex items-center gap-3 text-black justify-center font-black text-center">
-                  <span className="w-3 h-3 bg-bulltech-blue rounded-full flex-shrink-0 shadow-sm ring-2 ring-white/80 shrink-0"></span>
-                  <span className="text-fluid-body-lg text-center">{item}</span>
+                <li key={index} className="flex items-start sm:items-center gap-3 text-black justify-center font-black text-center text-fluid-body-lg">
+                  <span className="w-3 h-3 bg-bulltech-blue rounded-full flex-shrink-0 shadow-sm ring-2 ring-white/80 shrink-0 mt-2 sm:mt-0"></span>
+                  <span>{item}</span>
                 </li>
               ))}
             </ul>
@@ -172,8 +182,40 @@ export default function ContentSections() {
           </p>
 
         </div>
-      </section>
 
+        {/* Featured Image Grid */}
+        <div className="w-full max-w-6xl mt-16 sm:mt-24 px-4 pb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[300px]">
+            {/* Large Feature Image */}
+            <div className="lg:col-span-2 lg:row-span-2 relative rounded-2xl overflow-hidden group">
+              <Image
+                src={images[0]}
+                alt="BullTech Feature"
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 1024px) 100vw, 66vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-8">
+                <p className="text-white font-bold text-xl uppercase tracking-wider">On Location</p>
+              </div>
+            </div>
+
+            {/* Side Images */}
+            {images.slice(1).map((src, index) => (
+              <div key={index} className="relative rounded-2xl overflow-hidden group">
+                <Image
+                  src={src}
+                  alt={`BullTech Service ${index + 1}`}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </>
   );
 }

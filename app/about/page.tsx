@@ -4,6 +4,15 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import Image from 'next/image';
 
+const images = [
+  '/IMG_8233.png',
+  '/IMG_7521.png',
+  '/IMG_6607.png',
+  '/IMG_0547.png',
+  '/IMG_0074.png',
+  '/FullSizeRender (1).png',
+];
+
 export default function AboutPage() {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -78,45 +87,71 @@ export default function AboutPage() {
       <div className="max-w-5xl mx-auto px-6 md:px-12 relative z-10 pt-16">
 
         {/* Title */}
-        <h1 className="about-title text-6xl md:text-8xl font-black uppercase tracking-tighter text-center mb-16 text-white">
+        <h1 className="about-title text-fluid-hero font-black uppercase tracking-tighter text-center mb-12 sm:mb-16 text-white break-words">
           About
         </h1>
 
         {/* Main Content */}
-        <div className="space-y-12 max-w-4xl mx-auto">
+        <div className="space-y-8 sm:space-y-12 max-w-4xl mx-auto px-4 sm:px-0">
 
           {/* Paragraph 1 */}
-          <p className="about-content text-2xl md:text-3xl leading-relaxed text-white font-bold drop-shadow-xl" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)' }}>
+          <p className="about-content text-xl sm:text-2xl md:text-3xl leading-relaxed text-white font-bold drop-shadow-xl text-center sm:text-left" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)' }}>
             Founded in 2022, BullTech Miami was created with a single purpose: to deliver world-class digital capture, color-managed workflows, on-set support, and high-end equipment rentals to production teams, photographers, agencies, and brands who demand reliability, speed, and excellence.
           </p>
 
           {/* Paragraph 2 */}
-          <p className="about-content text-2xl md:text-3xl leading-relaxed text-white font-bold drop-shadow-xl" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)' }}>
+          <p className="about-content text-xl sm:text-2xl md:text-3xl leading-relaxed text-white font-bold drop-shadow-xl text-center sm:text-left" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)' }}>
             With more than 30 years of professional experience in commercial and editorial photography, and a decade specializing in digital tech workflows, BullTech brings a rare combination of technical mastery, creative sensitivity, and rock-solid problem solving to every set—whether in the studio, on location, or underwater.
           </p>
 
           {/* Philosophy Section */}
-          <div className="pt-16 space-y-10">
+          <div className="pt-12 sm:pt-16 space-y-8 sm:space-y-10">
             <div className="flex items-center justify-center gap-4 opacity-90">
-               <span className="h-[2px] w-12 bg-white shadow-[0_0_10px_white]"></span>
-               <span className="text-sm font-black uppercase tracking-[0.3em] text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">Our Philosophy</span>
-               <span className="h-[2px] w-12 bg-white shadow-[0_0_10px_white]"></span>
+               <span className="h-[2px] w-8 sm:w-12 bg-white shadow-[0_0_10px_white]"></span>
+               <span className="text-xs sm:text-sm font-black uppercase tracking-[0.3em] text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)] whitespace-nowrap">Our Philosophy</span>
+               <span className="h-[2px] w-8 sm:w-12 bg-white shadow-[0_0_10px_white]"></span>
             </div>
             
-            <div className="space-y-8 text-white text-center">
-              <p className="about-content text-2xl md:text-3xl font-bold leading-relaxed drop-shadow-xl" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)' }}>
+            <div className="space-y-6 sm:space-y-8 text-white text-center px-2">
+              <p className="about-content text-xl sm:text-2xl md:text-3xl font-bold leading-relaxed drop-shadow-xl" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)' }}>
                 At BullTech, we believe that great imagery is the product of both artistry and precision.
               </p>
-              <p className="about-content text-xl md:text-2xl font-bold leading-relaxed drop-shadow-xl" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)' }}>
+              <p className="about-content text-lg sm:text-xl md:text-2xl font-bold leading-relaxed drop-shadow-xl" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)' }}>
                 Our role is to build the most stable, efficient, and bulletproof workflow for your project, so
                 that photographers and directors can focus entirely on the creative process.
               </p>
-              <p className="about-content text-2xl md:text-3xl font-black drop-shadow-2xl" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.9), 0 0 30px rgba(0,0,0,0.6)' }}>
+              <p className="about-content text-xl sm:text-2xl md:text-3xl font-black drop-shadow-2xl" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.9), 0 0 30px rgba(0,0,0,0.6)' }}>
                 We don’t just operate machines; we collaborate, anticipate, and elevate.
               </p>
             </div>
           </div>
 
+        </div>
+
+
+        {/* Masonry Image Gallery */}
+        <div className="mt-24 pt-16 border-t border-white/10">
+          <h2 className="about-content text-xl md:text-2xl font-black uppercase tracking-[0.3em] text-bulltech-blue text-center mb-12 drop-shadow-[0_0_10px_rgba(78,199,232,0.5)]">
+            Our Work in Action
+          </h2>
+          <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+            {images.map((src, index) => (
+              <div 
+                key={index} 
+                className="about-content relative break-inside-avoid rounded-xl overflow-hidden group shadow-2xl bg-white/5"
+              >
+                <Image
+                  src={src}
+                  alt={`BullTech Action ${index + 1}`}
+                  width={800}
+                  height={1200}
+                  className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Stats Section */}
