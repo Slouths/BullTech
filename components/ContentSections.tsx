@@ -103,7 +103,7 @@ export default function ContentSections() {
         </div>
 
         {/* Hero Video - placed in flow to prevent overlap */}
-        <div ref={videoRef} className="relative w-full flex justify-center z-[6] pointer-events-none mt-[-10rem] sm:mt-[-12rem] md:mt-[-14rem]">
+        <div ref={videoRef} className="relative w-full flex justify-center z-[6] pointer-events-none mt-[-12rem] sm:mt-[-14rem] md:mt-[-16rem]">
           <video
             autoPlay
             loop
