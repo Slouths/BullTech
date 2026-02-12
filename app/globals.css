@@ -35,18 +35,18 @@
     line-height: 1.1;
   }
   .text-fluid-body {
-    /* Body text: 1rem (16px) min, scales to 1.25rem (20px) max */
-    font-size: clamp(1rem, 1vw + 0.8rem, 1.25rem);
+    /* Body text: 1.125rem (18px) min, scales to 1.375rem (22px) max */
+    font-size: clamp(1.125rem, 1vw + 1rem, 1.375rem);
     line-height: 1.6;
   }
   .text-fluid-body-lg {
-    /* Large body/list items: 1.125rem (18px) min, scales to 1.5rem (24px) max */
-    font-size: clamp(1.125rem, 1.5vw + 0.8rem, 1.5rem);
+    /* Large body/list items: 1.25rem (20px) min, scales to 1.625rem (26px) max */
+    font-size: clamp(1.25rem, 1.5vw + 1rem, 1.625rem);
     line-height: 1.5;
   }
   .text-fluid-label {
-    /* Labels: 0.875rem (14px) min, scales to 1rem (16px) max */
-    font-size: clamp(0.875rem, 0.5vw + 0.75rem, 1rem);
+    /* Labels: 1rem (16px) min, scales to 1.125rem (18px) max */
+    font-size: clamp(1rem, 0.5vw + 0.875rem, 1.125rem);
     letter-spacing: 0.2em;
   }
 

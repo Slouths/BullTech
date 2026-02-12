@@ -8,7 +8,7 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
-    { label: 'About', href: '/about' },
+    { label: 'About Us', href: '/about' },
     { label: 'Services', href: '/services' },
     { label: 'Work', href: '/work' },
   ];
@@ -87,11 +87,11 @@ export default function Header() {
 
       {/* Mobile Menu Overlay */}
       <div 
-        className={`fixed inset-0 bg-black/95 backdrop-blur-xl z-[10000] transition-all duration-500 flex flex-col justify-center items-center overflow-y-auto ${
+        className={`fixed inset-0 bg-black/95 backdrop-blur-xl z-[10000] transition-all duration-500 flex flex-col items-center overflow-y-auto ${
           isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
       >
-        <div className="flex flex-col items-center gap-8 min-h-[min(100vh,600px)] py-8">
+        <div className="flex flex-col items-center gap-8 min-h-[min(100vh,600px)] pt-32 pb-8">
           {navItems.map((item, i) => (
             <Link 
               key={item.label} 

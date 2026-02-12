@@ -6,14 +6,6 @@ import Link from 'next/link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-const images = [
-  '/LOOK-7_0005.png',
-  '/IMG_8215.png',
-  '/IMG_7518.png',
-  '/IMG_0684.png',
-  '/IMG_0086.png',
-  '/FullSizeRender.png',
-];
 
 export default function ContentSections() {
   const section1Ref = useRef<HTMLElement>(null);
@@ -103,7 +95,7 @@ export default function ContentSections() {
         </div>
 
         {/* Hero Video - placed in flow to prevent overlap */}
-        <div ref={videoRef} className="relative w-full flex justify-center z-[6] pointer-events-none mt-[-12rem] sm:mt-[-14rem] md:mt-[-16rem] lg:mt-[-22rem] xl:mt-[-26rem] 2xl:mt-[-30rem]">
+        <div ref={videoRef} className="relative w-full flex justify-center z-[6] pointer-events-none mt-[-12rem] sm:mt-[-14rem] md:mt-[-16rem] lg:mt-[-22rem] xl:mt-[-26rem] 2xl:mt-[-30rem] will-change-transform">
           <video
             autoPlay
             loop
@@ -183,38 +175,6 @@ export default function ContentSections() {
 
         </div>
 
-        {/* Featured Image Grid */}
-        <div className="w-full max-w-6xl mt-16 sm:mt-24 px-4 pb-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[300px]">
-            {/* Large Feature Image */}
-            <div className="lg:col-span-2 lg:row-span-2 relative rounded-2xl overflow-hidden group">
-              <Image
-                src={images[0]}
-                alt="BullTech Feature"
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-                sizes="(max-width: 1024px) 100vw, 66vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-8">
-                <p className="text-white font-bold text-xl uppercase tracking-wider">On Location</p>
-              </div>
-            </div>
-
-            {/* Side Images */}
-            {images.slice(1).map((src, index) => (
-              <div key={index} className="relative rounded-2xl overflow-hidden group">
-                <Image
-                  src={src}
-                  alt={`BullTech Service ${index + 1}`}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                />
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
-              </div>
-            ))}
-          </div>
-        </div>
       </section>
     </>
   );

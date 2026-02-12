@@ -4,14 +4,6 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import Image from 'next/image';
 
-const images = [
-  '/IMG_8233.png',
-  '/IMG_7521.png',
-  '/IMG_6607.png',
-  '/IMG_0547.png',
-  '/IMG_0074.png',
-  '/FullSizeRender (1).png',
-];
 
 export default function AboutPage() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -129,30 +121,6 @@ export default function AboutPage() {
         </div>
 
 
-        {/* Masonry Image Gallery */}
-        <div className="mt-24 pt-16 border-t border-white/10">
-          <h2 className="about-content text-xl md:text-2xl font-black uppercase tracking-[0.3em] text-bulltech-blue text-center mb-12 drop-shadow-[0_0_10px_rgba(78,199,232,0.5)]">
-            Our Work in Action
-          </h2>
-          <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
-            {images.map((src, index) => (
-              <div 
-                key={index} 
-                className="about-content relative break-inside-avoid rounded-xl overflow-hidden group shadow-2xl bg-white/5"
-              >
-                <Image
-                  src={src}
-                  alt={`BullTech Action ${index + 1}`}
-                  width={800}
-                  height={1200}
-                  className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              </div>
-            ))}
-          </div>
-        </div>
 
         {/* Stats Section */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-24 pt-16 border-t border-white/10">
