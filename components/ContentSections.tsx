@@ -101,7 +101,7 @@ export default function ContentSections() {
             loop
             muted
             playsInline
-            poster="/AF_Bulltech_Miami_Sticker01.webp"
+            // poster="/AF_Bulltech_Miami_Sticker01.webp" // Removed to prevent flash of poster
             className="video-fluid-hero object-contain object-top"
           >
             <source src="/logobig.webm" type="video/webm" />

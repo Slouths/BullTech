@@ -143,15 +143,42 @@ export default function ContactPage() {
         );
         const data = await res.json();
 
-        const getWeatherIcon = (code: number) => {
-          if (code >= 0 && code <= 3) return '☀️';
-          if (code >= 45 && code <= 48) return '🌫️';
-          if (code >= 51 && code <= 67) return '🌧️';
-          if (code >= 71 && code <= 77) return '❄️';
-          if (code >= 80 && code <= 82) return '🌦️';
-          if (code >= 95 && code <= 99) return '⛈️';
-          return '☁️';
-        };
+  const getWeatherIcon = (code: number) => {
+    // WMO Weather interpretation codes (WW)
+    // Code 0: Clear sky
+    if (code === 0) return '☀️';
+    
+    // Code 1, 2, 3: Mainly clear, partly cloudy, and overcast
+    if (code >= 1 && code <= 3) return '☁️';
+    
+    // Code 45, 48: Fog and depositing rime fog
+    if (code === 45 || code === 48) return '🌫️';
+    
+    // Code 51, 53, 55: Drizzle: Light, moderate, and dense intensity
+    // Code 56, 57: Freezing Drizzle: Light and dense intensity
+    if (code >= 51 && code <= 57) return '🌧️';
+    
+    // Code 61, 63, 65: Rain: Slight, moderate and heavy intensity
+    // Code 66, 67: Freezing Rain: Light and heavy intensity
+    if (code >= 61 && code <= 67) return '🌧️';
+    
+    // Code 71, 73, 75: Snow fall: Slight, moderate, and heavy intensity
+    // Code 77: Snow grains
+    if (code >= 71 && code <= 77) return '❄️';
+    
+    // Code 80, 81, 82: Rain showers: Slight, moderate, and violent
+    if (code >= 80 && code <= 82) return '🌦️';
+    
+    // Code 85, 86: Snow showers slight and heavy
+    if (code === 85 || code === 86) return '🌨️';
+    
+    // Code 95: Thunderstorm: Slight or moderate
+    // Code 96, 99: Thunderstorm with slight and heavy hail
+    if (code >= 95 && code <= 99) return '⛈️';
+    
+    // Fallback
+    return '☁️';
+  };
 
         const currentCode = data.current.weather_code;
         
@@ -290,6 +317,129 @@ export default function ContactPage() {
     { label: 'Test / Portfolio Request', value: 'test-portfolio' },
   ];
 
+  const SidebarWidgets = () => (
+    <>
+      {/* BullTech LLC QR Code Card */}
+      <div className="bg-[#111] border border-white/10 rounded-2xl p-8 max-w-sm flex flex-col items-center text-center shadow-2xl relative overflow-hidden group">
+        <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-bulltech-blue via-white to-bulltech-pink opacity-50"></div>
+        
+        <div className="relative mb-6">
+          <div className="w-24 h-24 rounded-full overflow-hidden">
+            <Image
+              src="/AF_Bulltech_Miami_Logo.webp"
+              alt="BullTech Logo"
+              width={96}
+              height={96}
+              className="w-full h-full object-cover rounded-full"
+            />
+          </div>
+        </div>
+
+        <h3 className="text-2xl font-bold mb-1">BullTech LLC</h3>
+        <p className="text-white/40 text-sm mb-6">WhatsApp Business Account</p>
+
+        <div className="bg-white p-2 rounded-xl mb-2">
+          <Image
+            src="/whatsapp-qr.png"
+            alt="WhatsApp QR Code"
+            width={200}
+            height={200}
+            className="w-48 h-48 object-contain"
+            unoptimized
+          />
+        </div>
+      </div>
+
+      {/* Week Weather Outcome Widget */}
+      <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 max-w-sm">
+        <div className="flex items-center gap-4 mb-6">
+          <div className="w-20 h-20 rounded-full overflow-hidden">
+            <Image
+              src="/AF_Bulltech_Miami_Logo.webp"
+              alt="BullTech Logo"
+              width={80}
+              height={80}
+              className="w-full h-full object-cover rounded-full"
+            />
+          </div>
+          <div>
+            <p className="font-bold text-lg uppercase tracking-tight">Week Weather</p>
+            <p className="font-bold text-lg uppercase tracking-tight">Miami, FL</p>
+          </div>
+        </div>
+
+        {weather && weather.daily ? (
+          <div className="space-y-3">
+            {weather.daily.map((day, i) => (
+              <div key={i} className="flex items-center justify-between text-sm py-2 border-b border-white/5 last:border-0">
+                <div className="w-12 font-medium text-white/80">{day.day}</div>
+                <div className="text-xl">
+                  {day.code >= 0 && day.code <= 3 ? (
+                    <span className="inline-block animate-spin-slow origin-center">☀️</span>
+                  ) : day.code >= 51 ? (
+                    <span className="inline-block animate-float">🌧️</span>
+                  ) : (
+                    <span className="inline-block animate-float">☁️</span>
+                  )}
+                </div>
+                <div className="flex gap-3 font-mono">
+                  <span className="text-white">{day.max}°</span>
+                  <span className="text-white/40">{day.min}°</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="flex items-center justify-center h-32">
+            <div className="w-8 h-8 border-2 border-bulltech-pink border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        )}
+      </div>
+
+      {/* Live Sets Widget */}
+      <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 max-w-sm">
+        <div className="flex items-center gap-4 mb-6">
+          <div className="w-20 h-20 rounded-full overflow-hidden">
+            <Image
+              src="/AF_Bulltech_Miami_Logo.webp"
+              alt="BullTech Logo"
+              width={80}
+              height={80}
+              className="w-full h-full object-cover rounded-full"
+            />
+          </div>
+          <div>
+            <p className="font-bold text-lg uppercase tracking-tight">Weather Livestream</p>
+            <p className="font-bold text-lg uppercase tracking-tight">Miami, FL</p>
+          </div>
+        </div>
+
+        {/* Links to other cams */}
+        <div className="space-y-2">
+          <p className="text-xs font-bold uppercase text-white/40 tracking-wider mb-2">Live Cams</p>
+          {[
+            { name: 'W South Beach Cam (Official)', url: 'https://www.miamiandbeaches.com/l/hotels/w-south-beach/488?category=1' },
+            { name: 'Key Biscayne (Virginia Key)', url: 'https://www.miamiandbeaches.com/plan-your-trip/miami-webcams' },
+            { name: 'Coconut Grove (Arya Hotel)', url: 'https://www.miamiandbeaches.com/plan-your-trip/miami-webcams' },
+          ].map((cam, i) => (
+            <a 
+              key={i}
+              href={cam.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-between p-3 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 transition-all group"
+            >
+              <span className="text-sm font-medium text-white/80 group-hover:text-bulltech-pink">{cam.name}</span>
+              <svg className="w-4 h-4 text-white/40 group-hover:text-bulltech-pink transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+
   return (
     <div className="min-h-screen bg-[#080808] text-white pt-32 md:pt-40 pb-12">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
@@ -321,397 +471,290 @@ export default function ContactPage() {
               </a>
             </div>
 
-            {/* BullTech LLC QR Code Card */}
-            <div className="bg-[#111] border border-white/10 rounded-2xl p-8 max-w-sm flex flex-col items-center text-center shadow-2xl relative overflow-hidden group">
-              <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-bulltech-blue via-white to-bulltech-pink opacity-50"></div>
-              
-              <div className="relative mb-6">
-                <div className="w-24 h-24 rounded-full overflow-hidden">
-                  <Image
-                    src="/AF_Bulltech_Miami_Logo.webp"
-                    alt="BullTech Logo"
-                    width={96}
-                    height={96}
-                    className="w-full h-full object-cover rounded-full"
-                  />
-                </div>
-              </div>
-
-              <h3 className="text-2xl font-bold mb-1">BullTech LLC</h3>
-              <p className="text-white/40 text-sm mb-6">WhatsApp Business Account</p>
-
-              <div className="bg-white p-2 rounded-xl mb-2">
-                <Image
-                  src="/whatsapp-qr.png"
-                  alt="WhatsApp QR Code"
-                  width={200}
-                  height={200}
-                  className="w-48 h-48 object-contain"
-                  unoptimized
-                />
-              </div>
-            </div>
-
-            {/* Week Weather Outcome Widget */}
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 max-w-sm">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-20 h-20 rounded-full overflow-hidden">
-                  <Image
-                    src="/AF_Bulltech_Miami_Logo.webp"
-                    alt="BullTech Logo"
-                    width={80}
-                    height={80}
-                    className="w-full h-full object-cover rounded-full"
-                  />
-                </div>
-                <div>
-                  <p className="font-bold text-lg uppercase tracking-tight">Week Weather</p>
-                  <p className="font-bold text-lg uppercase tracking-tight">Miami, FL</p>
-                </div>
-              </div>
-
-              {weather && weather.daily ? (
-                <div className="space-y-3">
-                  {weather.daily.map((day, i) => (
-                    <div key={i} className="flex items-center justify-between text-sm py-2 border-b border-white/5 last:border-0">
-                      <div className="w-12 font-medium text-white/80">{day.day}</div>
-                      <div className="text-xl">
-                        {day.code >= 0 && day.code <= 3 ? (
-                          <span className="inline-block animate-spin-slow origin-center">☀️</span>
-                        ) : day.code >= 51 ? (
-                          <span className="inline-block animate-float">🌧️</span>
-                        ) : (
-                          <span className="inline-block animate-float">☁️</span>
-                        )}
-                      </div>
-                      <div className="flex gap-3 font-mono">
-                        <span className="text-white">{day.max}°</span>
-                        <span className="text-white/40">{day.min}°</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="flex items-center justify-center h-32">
-                  <div className="w-8 h-8 border-2 border-bulltech-pink border-t-transparent rounded-full animate-spin"></div>
-                </div>
-              )}
-            </div>
-
-            {/* Live Sets Widget */}
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 max-w-sm">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-20 h-20 rounded-full overflow-hidden">
-                  <Image
-                    src="/AF_Bulltech_Miami_Logo.webp"
-                    alt="BullTech Logo"
-                    width={80}
-                    height={80}
-                    className="w-full h-full object-cover rounded-full"
-                  />
-                </div>
-                <div>
-                  <p className="font-bold text-lg uppercase tracking-tight">Weather Livestream</p>
-                  <p className="font-bold text-lg uppercase tracking-tight">Miami, FL</p>
-                </div>
-              </div>
-
-              {/* Links to other cams */}
-              <div className="space-y-2">
-                <p className="text-xs font-bold uppercase text-white/40 tracking-wider mb-2">Live Cams</p>
-                {[
-                  { name: 'W South Beach Cam (Official)', url: 'https://www.miamiandbeaches.com/l/hotels/w-south-beach/488?category=1' },
-                  { name: 'Key Biscayne (Virginia Key)', url: 'https://www.miamiandbeaches.com/plan-your-trip/miami-webcams' },
-                  { name: 'Coconut Grove (Arya Hotel)', url: 'https://www.miamiandbeaches.com/plan-your-trip/miami-webcams' },
-                ].map((cam, i) => (
-                  <a 
-                    key={i}
-                    href={cam.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-between p-3 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 transition-all group"
-                  >
-                    <span className="text-sm font-medium text-white/80 group-hover:text-bulltech-pink">{cam.name}</span>
-                    <svg className="w-4 h-4 text-white/40 group-hover:text-bulltech-pink transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
-                  </a>
-                ))}
-              </div>
+            {/* Widgets - Desktop Only */}
+            <div className="hidden md:block space-y-8">
+              <SidebarWidgets />
             </div>
           </div>
 
           {/* RIGHT COLUMN - Contact Form */}
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 md:p-12" ref={dropdownRef}>
-            <p className="text-sm text-white/70 mb-8">
-              Requests for services may be submitted through this form. You are also welcome to e-mail us directly at{' '}
-              <a href="mailto:hello@bulldigital.tech" className="text-bulltech-pink hover:underline">
-                hello@bulldigital.tech
-              </a>.
-            </p>
+          <div className="space-y-12">
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 md:p-12" ref={dropdownRef}>
+              <p className="text-sm text-white/70 mb-8">
+                Requests for services may be submitted through this form. You are also welcome to e-mail us directly at{' '}
+                <a href="mailto:hello@bulldigital.tech" className="text-bulltech-pink hover:underline">
+                  hello@bulldigital.tech
+                </a>.
+              </p>
 
-            {isSuccess ? (
-              <div className="bg-bulltech-pink/10 border border-bulltech-pink rounded-lg p-6 text-center animate-fade-in">
-                <div className="w-16 h-16 bg-bulltech-pink rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-8 h-8 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <h3 className="text-2xl font-bold text-white mb-2">Message Sent!</h3>
-                <p className="text-white/80 mb-6">
-                  Thank you for your inquiry. We have received your message and will get back to you shortly.
-                </p>
-                <button 
-                  onClick={() => setIsSuccess(false)}
-                  className="text-bulltech-pink hover:text-white transition-colors text-sm font-bold uppercase tracking-wider"
-                >
-                  Send Another Request
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-10">
-              {/* Name Fields */}
-              <div>
-                <label className="block text-sm font-bold uppercase tracking-wider mb-2">
-                  Name <span className="text-bulltech-pink">(required)</span>
-                </label>
-                <div className="grid grid-cols-2 gap-4">
-                  <input
-                    type="text"
-                    required
-                    placeholder="First Name"
-                    value={formData.firstName}
-                    onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-bulltech-pink transition-colors"
-                  />
-                  <input
-                    type="text"
-                    required
-                    placeholder="Last Name"
-                    value={formData.lastName}
-                    onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-bulltech-pink transition-colors"
-                  />
-                </div>
-              </div>
-
-              {/* Company */}
-              <div>
-                <label className="block text-sm font-bold uppercase tracking-wider mb-2">Company</label>
-                <input
-                  type="text"
-                  placeholder="Company"
-                  value={formData.company}
-                  onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-bulltech-pink transition-colors"
-                />
-              </div>
-
-              {/* Email */}
-              <div>
-                <label className="block text-sm font-bold uppercase tracking-wider mb-2">
-                  Email <span className="text-bulltech-pink">(required)</span>
-                </label>
-                <input
-                  type="email"
-                  required
-                  placeholder="Email"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-bulltech-pink transition-colors"
-                />
-              </div>
-
-              {/* Subject */}
-              <div>
-                <label className="block text-sm font-bold uppercase tracking-wider mb-2">
-                  Subject <span className="text-bulltech-pink">(required)</span>
-                </label>
-                <input
-                  type="text"
-                  required
-                  placeholder="Subject"
-                  value={formData.subject}
-                  onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-bulltech-pink transition-colors"
-                />
-              </div>
-
-              {/* Message */}
-              <div>
-                <label className="block text-sm font-bold uppercase tracking-wider mb-2">
-                  Message <span className="text-bulltech-pink">(required)</span>
-                </label>
-                <textarea
-                  required
-                  rows={6}
-                  placeholder="Message"
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-bulltech-pink transition-colors resize-none"
-                />
-              </div>
-
-              {/* Services Dropdown (Multi-select) */}
-              <div className="relative">
-                <label className="block text-sm font-bold uppercase tracking-wider mb-2">
-                  Workflow
-                </label>
-                
-                <button
-                  type="button"
-                  onClick={() => setActiveDropdown(activeDropdown === 'services' ? null : 'services')}
-                  className={`w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-left text-white focus:outline-none focus:border-bulltech-pink transition-colors flex items-center justify-between group ${
-                    activeDropdown === 'services' ? 'border-bulltech-pink bg-white/15' : 'hover:bg-white/15'
-                  }`}
-                >
-                  <span className={`block truncate ${formData.services.length === 0 ? 'text-white/40' : ''}`}>
-                    {selectedServicesText}
-                  </span>
-                  <svg 
-                    className={`w-5 h-5 text-white/60 transition-transform duration-300 ${activeDropdown === 'services' ? 'rotate-180 text-bulltech-pink' : 'group-hover:text-white'}`} 
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
+              {isSuccess ? (
+                <div className="bg-bulltech-pink/10 border border-bulltech-pink rounded-lg p-6 text-center animate-fade-in">
+                  <div className="w-16 h-16 bg-bulltech-pink rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg className="w-8 h-8 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-2">Message Sent!</h3>
+                  <p className="text-white/80 mb-6">
+                    Thank you for your inquiry. We have received your message and will get back to you shortly.
+                  </p>
+                  <button 
+                    onClick={() => setIsSuccess(false)}
+                    className="text-bulltech-pink hover:text-white transition-colors text-sm font-bold uppercase tracking-wider"
                   >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
+                    Send Another Request
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-10">
+                {/* Name Fields */}
+                <div>
+                  <label className="block text-sm font-bold uppercase tracking-wider mb-2">
+                    Name <span className="text-bulltech-pink">(required)</span>
+                  </label>
+                  <div className="grid grid-cols-2 gap-4">
+                    <input
+                      type="text"
+                      required
+                      placeholder="First Name"
+                      value={formData.firstName}
+                      onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                      className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-bulltech-pink transition-colors"
+                    />
+                    <input
+                      type="text"
+                      required
+                      placeholder="Last Name"
+                      value={formData.lastName}
+                      onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                      className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-bulltech-pink transition-colors"
+                    />
+                  </div>
+                </div>
 
-                <div className={`absolute z-50 top-full left-0 right-0 mt-2 bg-[#1a1a1a] border border-white/20 rounded-lg shadow-2xl overflow-hidden transition-all duration-200 origin-top ${activeDropdown === 'services' ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'}`}>
-                  <div className="max-h-80 overflow-y-auto p-4 space-y-3 custom-scrollbar">
-                    {/* Services checkboxes */}
-                    <label className="flex items-center gap-3 cursor-pointer group">
-                      <input type="checkbox" checked={formData.services.includes('Digital Capture')} onChange={() => handleServiceChange('Digital Capture')} className="w-5 h-5 rounded border-white/20 bg-white/10 text-bulltech-pink focus:ring-bulltech-pink focus:ring-2" />
-                      <span className="text-white group-hover:text-bulltech-pink transition-colors">Digital Capture</span>
-                    </label>
-                    <label className="flex items-center gap-3 cursor-pointer group">
-                      <input type="checkbox" checked={formData.services.includes('Equipment Rental')} onChange={() => handleServiceChange('Equipment Rental')} className="w-5 h-5 rounded border-white/20 bg-white/10 text-bulltech-pink focus:ring-bulltech-pink focus:ring-2" />
-                      <span className="text-white group-hover:text-bulltech-pink transition-colors">Equipment Rental</span>
-                    </label>
-                    <label className="flex items-center gap-3 cursor-pointer group">
-                      <input type="checkbox" checked={formData.services.includes('Live Streaming')} onChange={() => handleServiceChange('Live Streaming')} className="w-5 h-5 rounded border-white/20 bg-white/10 text-bulltech-pink focus:ring-bulltech-pink focus:ring-2" />
-                      <span className="text-white group-hover:text-bulltech-pink transition-colors">Live Streaming</span>
-                    </label>
-                    <div className="space-y-3">
+                {/* Company */}
+                <div>
+                  <label className="block text-sm font-bold uppercase tracking-wider mb-2">Company</label>
+                  <input
+                    type="text"
+                    placeholder="Company"
+                    value={formData.company}
+                    onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-bulltech-pink transition-colors"
+                  />
+                </div>
+
+                {/* Email */}
+                <div>
+                  <label className="block text-sm font-bold uppercase tracking-wider mb-2">
+                    Email <span className="text-bulltech-pink">(required)</span>
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    placeholder="Email"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-bulltech-pink transition-colors"
+                  />
+                </div>
+
+                {/* Subject */}
+                <div>
+                  <label className="block text-sm font-bold uppercase tracking-wider mb-2">
+                    Subject <span className="text-bulltech-pink">(required)</span>
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Subject"
+                    value={formData.subject}
+                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-bulltech-pink transition-colors"
+                  />
+                </div>
+
+                {/* Message */}
+                <div>
+                  <label className="block text-sm font-bold uppercase tracking-wider mb-2">
+                    Message <span className="text-bulltech-pink">(required)</span>
+                  </label>
+                  <textarea
+                    required
+                    rows={6}
+                    placeholder="Message"
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-bulltech-pink transition-colors resize-none"
+                  />
+                </div>
+
+                {/* Services Dropdown (Multi-select) */}
+                <div className="relative">
+                  <label className="block text-sm font-bold uppercase tracking-wider mb-2">
+                    Workflow
+                  </label>
+                  
+                  <button
+                    type="button"
+                    onClick={() => setActiveDropdown(activeDropdown === 'services' ? null : 'services')}
+                    className={`w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-left text-white focus:outline-none focus:border-bulltech-pink transition-colors flex items-center justify-between group ${
+                      activeDropdown === 'services' ? 'border-bulltech-pink bg-white/15' : 'hover:bg-white/15'
+                    }`}
+                  >
+                    <span className={`block truncate ${formData.services.length === 0 ? 'text-white/40' : ''}`}>
+                      {selectedServicesText}
+                    </span>
+                    <svg 
+                      className={`w-5 h-5 text-white/60 transition-transform duration-300 ${activeDropdown === 'services' ? 'rotate-180 text-bulltech-pink' : 'group-hover:text-white'}`} 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+
+                  <div className={`absolute z-50 top-full left-0 right-0 mt-2 bg-[#1a1a1a] border border-white/20 rounded-lg shadow-2xl overflow-hidden transition-all duration-200 origin-top ${activeDropdown === 'services' ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'}`}>
+                    <div className="max-h-80 overflow-y-auto p-4 space-y-3 custom-scrollbar">
+                      {/* Services checkboxes */}
                       <label className="flex items-center gap-3 cursor-pointer group">
-                        <input type="checkbox" checked={formData.services.includes('Post Production')} onChange={() => handleServiceChange('Post Production')} className="w-5 h-5 rounded border-white/20 bg-white/10 text-bulltech-pink focus:ring-bulltech-pink focus:ring-2" />
-                        <span className="text-white group-hover:text-bulltech-pink transition-colors">Post Production</span>
+                        <input type="checkbox" checked={formData.services.includes('Digital Capture')} onChange={() => handleServiceChange('Digital Capture')} className="w-5 h-5 rounded border-white/20 bg-white/10 text-bulltech-pink focus:ring-bulltech-pink focus:ring-2" />
+                        <span className="text-white group-hover:text-bulltech-pink transition-colors">Digital Capture</span>
+                      </label>
+                      <label className="flex items-center gap-3 cursor-pointer group">
+                        <input type="checkbox" checked={formData.services.includes('Equipment Rental')} onChange={() => handleServiceChange('Equipment Rental')} className="w-5 h-5 rounded border-white/20 bg-white/10 text-bulltech-pink focus:ring-bulltech-pink focus:ring-2" />
+                        <span className="text-white group-hover:text-bulltech-pink transition-colors">Equipment Rental</span>
+                      </label>
+                      <label className="flex items-center gap-3 cursor-pointer group">
+                        <input type="checkbox" checked={formData.services.includes('Live Streaming')} onChange={() => handleServiceChange('Live Streaming')} className="w-5 h-5 rounded border-white/20 bg-white/10 text-bulltech-pink focus:ring-bulltech-pink focus:ring-2" />
+                        <span className="text-white group-hover:text-bulltech-pink transition-colors">Live Streaming</span>
                       </label>
                       <div className="space-y-3">
                         <label className="flex items-center gap-3 cursor-pointer group">
-                          <input type="checkbox" checked={formData.services.includes('Color')} onChange={() => handleServiceChange('Color')} className="w-4 h-4 rounded border-white/20 bg-white/10 text-bulltech-pink focus:ring-bulltech-pink focus:ring-2" />
-                          <span className="text-white group-hover:text-bulltech-pink transition-colors">Color</span>
+                          <input type="checkbox" checked={formData.services.includes('Post Production')} onChange={() => handleServiceChange('Post Production')} className="w-5 h-5 rounded border-white/20 bg-white/10 text-bulltech-pink focus:ring-bulltech-pink focus:ring-2" />
+                          <span className="text-white group-hover:text-bulltech-pink transition-colors">Post Production</span>
                         </label>
-                        <label className="flex items-center gap-3 cursor-pointer group">
-                          <input type="checkbox" checked={formData.services.includes('Retouching')} onChange={() => handleServiceChange('Retouching')} className="w-4 h-4 rounded border-white/20 bg-white/10 text-bulltech-pink focus:ring-bulltech-pink focus:ring-2" />
-                          <span className="text-white group-hover:text-bulltech-pink transition-colors">Retouching</span>
-                        </label>
+                        <div className="space-y-3">
+                          <label className="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" checked={formData.services.includes('Color')} onChange={() => handleServiceChange('Color')} className="w-4 h-4 rounded border-white/20 bg-white/10 text-bulltech-pink focus:ring-bulltech-pink focus:ring-2" />
+                            <span className="text-white group-hover:text-bulltech-pink transition-colors">Color</span>
+                          </label>
+                          <label className="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" checked={formData.services.includes('Retouching')} onChange={() => handleServiceChange('Retouching')} className="w-4 h-4 rounded border-white/20 bg-white/10 text-bulltech-pink focus:ring-bulltech-pink focus:ring-2" />
+                            <span className="text-white group-hover:text-bulltech-pink transition-colors">Retouching</span>
+                          </label>
+                        </div>
                       </div>
+                      <label className="flex items-center gap-3 cursor-pointer group">
+                        <input type="checkbox" checked={formData.services.includes('Archival')} onChange={() => handleServiceChange('Archival')} className="w-5 h-5 rounded border-white/20 bg-white/10 text-bulltech-pink focus:ring-bulltech-pink focus:ring-2" />
+                        <span className="text-white group-hover:text-bulltech-pink transition-colors">Archival</span>
+                      </label>
+                      <label className="flex items-center gap-3 cursor-pointer group">
+                        <input type="checkbox" checked={formData.services.includes('Other')} onChange={() => handleServiceChange('Other')} className="w-5 h-5 rounded border-white/20 bg-white/10 text-bulltech-pink focus:ring-bulltech-pink focus:ring-2" />
+                        <span className="text-white group-hover:text-bulltech-pink transition-colors">Other (Specify)</span>
+                      </label>
                     </div>
-                    <label className="flex items-center gap-3 cursor-pointer group">
-                      <input type="checkbox" checked={formData.services.includes('Archival')} onChange={() => handleServiceChange('Archival')} className="w-5 h-5 rounded border-white/20 bg-white/10 text-bulltech-pink focus:ring-bulltech-pink focus:ring-2" />
-                      <span className="text-white group-hover:text-bulltech-pink transition-colors">Archival</span>
-                    </label>
-                    <label className="flex items-center gap-3 cursor-pointer group">
-                      <input type="checkbox" checked={formData.services.includes('Other')} onChange={() => handleServiceChange('Other')} className="w-5 h-5 rounded border-white/20 bg-white/10 text-bulltech-pink focus:ring-bulltech-pink focus:ring-2" />
-                      <span className="text-white group-hover:text-bulltech-pink transition-colors">Other (Specify)</span>
-                    </label>
+                  </div>
+                  
+                  {formData.services.includes('Other') && (
+                    <input
+                      type="text"
+                      placeholder="Please specify other services"
+                      value={formData.otherService}
+                      onChange={(e) => setFormData({ ...formData, otherService: e.target.value })}
+                      className="w-full mt-3 px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-bulltech-pink transition-colors"
+                    />
+                  )}
+                </div>
+
+                {/* Shoot Location - Custom Dropdown */}
+                <div>
+                  <CustomSelect
+                    label="Shoot Location"
+                    value={formData.shootLocation}
+                    onChange={(value) => setFormData({ ...formData, shootLocation: value })}
+                    options={shootLocationOptions}
+                    isOpen={activeDropdown === 'shootLocation'}
+                    onToggle={() => setActiveDropdown(activeDropdown === 'shootLocation' ? null : 'shootLocation')}
+                  />
+                  {(formData.shootLocation === 'caribbean-specify' || formData.shootLocation === 'international-specify') && (
+                    <input
+                      type="text"
+                      placeholder="Please specify location"
+                      value={formData.shootLocationDetails}
+                      onChange={(e) => setFormData({ ...formData, shootLocationDetails: e.target.value })}
+                      className="w-full mt-3 px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-bulltech-pink transition-colors"
+                    />
+                  )}
+                </div>
+
+                {/* Location Type - Custom Dropdown */}
+                <CustomSelect
+                  label="Location Type"
+                  value={formData.locationType}
+                  onChange={(value) => setFormData({ ...formData, locationType: value })}
+                  options={locationTypeOptions}
+                  isOpen={activeDropdown === 'locationType'}
+                  onToggle={() => setActiveDropdown(activeDropdown === 'locationType' ? null : 'locationType')}
+                />
+
+                {/* Shoot Type - Custom Dropdown */}
+                <CustomSelect
+                  label="Shoot Type"
+                  value={formData.shootType}
+                  onChange={(value) => setFormData({ ...formData, shootType: value })}
+                  options={shootTypeOptions}
+                  isOpen={activeDropdown === 'shootType'}
+                  onToggle={() => setActiveDropdown(activeDropdown === 'shootType' ? null : 'shootType')}
+                />
+
+                {/* Equipment Needs */}
+                <div>
+                  <label className="block text-sm font-bold uppercase tracking-wider mb-2">Equipment Needs</label>
+                  <textarea
+                    rows={4}
+                    placeholder="Equipment Needs"
+                    value={formData.equipmentNeeds}
+                    onChange={(e) => setFormData({ ...formData, equipmentNeeds: e.target.value })}
+                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-bulltech-pink transition-colors resize-none"
+                  />
+                </div>
+
+                {/* Budget */}
+                <div>
+                  <label className="block text-sm font-bold uppercase tracking-wider mb-2">Budget</label>
+                  <p className="text-xs text-white/60 mb-3">
+                    For digital tech services, provide full digital budget including equipment. Please list post production budgets separately if applicable. If unknown, leave blank.
+                  </p>
+                  <div className="relative">
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-white/60">$</span>
+                    <input
+                      type="text"
+                      placeholder="Budget"
+                      value={formData.budget}
+                      onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
+                      className="w-full pl-8 pr-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-bulltech-pink transition-colors"
+                    />
                   </div>
                 </div>
-                
-                {formData.services.includes('Other') && (
-                  <input
-                    type="text"
-                    placeholder="Please specify other services"
-                    value={formData.otherService}
-                    onChange={(e) => setFormData({ ...formData, otherService: e.target.value })}
-                    className="w-full mt-3 px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-bulltech-pink transition-colors"
-                  />
-                )}
-              </div>
 
-              {/* Shoot Location - Custom Dropdown */}
-              <div>
-                <CustomSelect
-                  label="Shoot Location"
-                  value={formData.shootLocation}
-                  onChange={(value) => setFormData({ ...formData, shootLocation: value })}
-                  options={shootLocationOptions}
-                  isOpen={activeDropdown === 'shootLocation'}
-                  onToggle={() => setActiveDropdown(activeDropdown === 'shootLocation' ? null : 'shootLocation')}
-                />
-                {(formData.shootLocation === 'caribbean-specify' || formData.shootLocation === 'international-specify') && (
-                  <input
-                    type="text"
-                    placeholder="Please specify location"
-                    value={formData.shootLocationDetails}
-                    onChange={(e) => setFormData({ ...formData, shootLocationDetails: e.target.value })}
-                    className="w-full mt-3 px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-bulltech-pink transition-colors"
-                  />
-                )}
-              </div>
+                {/* Submit Button */}
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full py-4 bg-bulltech-pink hover:bg-bulltech-blue text-black font-bold uppercase tracking-widest rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? 'Submitting...' : 'Submit'}
+                </button>
+              </form>
+              )}
+            </div>
 
-              {/* Location Type - Custom Dropdown */}
-              <CustomSelect
-                label="Location Type"
-                value={formData.locationType}
-                onChange={(value) => setFormData({ ...formData, locationType: value })}
-                options={locationTypeOptions}
-                isOpen={activeDropdown === 'locationType'}
-                onToggle={() => setActiveDropdown(activeDropdown === 'locationType' ? null : 'locationType')}
-              />
-
-              {/* Shoot Type - Custom Dropdown */}
-              <CustomSelect
-                label="Shoot Type"
-                value={formData.shootType}
-                onChange={(value) => setFormData({ ...formData, shootType: value })}
-                options={shootTypeOptions}
-                isOpen={activeDropdown === 'shootType'}
-                onToggle={() => setActiveDropdown(activeDropdown === 'shootType' ? null : 'shootType')}
-              />
-
-              {/* Equipment Needs */}
-              <div>
-                <label className="block text-sm font-bold uppercase tracking-wider mb-2">Equipment Needs</label>
-                <textarea
-                  rows={4}
-                  placeholder="Equipment Needs"
-                  value={formData.equipmentNeeds}
-                  onChange={(e) => setFormData({ ...formData, equipmentNeeds: e.target.value })}
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-bulltech-pink transition-colors resize-none"
-                />
-              </div>
-
-              {/* Budget */}
-              <div>
-                <label className="block text-sm font-bold uppercase tracking-wider mb-2">Budget</label>
-                <p className="text-xs text-white/60 mb-3">
-                  For digital tech services, provide full digital budget including equipment. Please list post production budgets separately if applicable. If unknown, leave blank.
-                </p>
-                <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-white/60">$</span>
-                  <input
-                    type="text"
-                    placeholder="Budget"
-                    value={formData.budget}
-                    onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                    className="w-full pl-8 pr-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-bulltech-pink transition-colors"
-                  />
-                </div>
-              </div>
-
-              {/* Submit Button */}
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full py-4 bg-bulltech-pink hover:bg-bulltech-blue text-black font-bold uppercase tracking-widest rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {isSubmitting ? 'Submitting...' : 'Submit'}
-              </button>
-            </form>
-            )}
+            {/* Widgets - Mobile Only */}
+            <div className="md:hidden space-y-8">
+              <SidebarWidgets />
+            </div>
           </div>
         </div>
       </div>
