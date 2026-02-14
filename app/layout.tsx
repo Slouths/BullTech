@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Roboto, Permanent_Marker } from 'next/font/google';
 import "./globals.css";
 import Header from '@/components/Header';
+import { Analytics } from '@vercel/analytics/react';
 
 const roboto = Roboto({
   weight: ['400', '700'],
@@ -36,6 +37,7 @@ export default function RootLayout({
       <body className={`${roboto.variable} ${permanentMarker.variable} antialiased bg-white text-black`}>
         <Header />
         {children}
+        <Analytics />
       </body>
     </html>
   );
