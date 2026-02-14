@@ -107,6 +107,43 @@ const CustomSelect = ({ label, value, onChange, options, isOpen, onToggle, place
   );
 };
 
+const getWeatherIcon = (code: number) => {
+  // WMO Weather interpretation codes (WW)
+  // Code 0: Clear sky
+  if (code === 0) return '☀️';
+  
+  // Code 1, 2, 3: Mainly clear, partly cloudy, and overcast
+  if (code >= 1 && code <= 3) return '☁️';
+  
+  // Code 45, 48: Fog and depositing rime fog
+  if (code === 45 || code === 48) return '🌫️';
+  
+  // Code 51, 53, 55: Drizzle: Light, moderate, and dense intensity
+  // Code 56, 57: Freezing Drizzle: Light and dense intensity
+  if (code >= 51 && code <= 57) return '🌧️';
+  
+  // Code 61, 63, 65: Rain: Slight, moderate and heavy intensity
+  // Code 66, 67: Freezing Rain: Light and heavy intensity
+  if (code >= 61 && code <= 67) return '🌧️';
+  
+  // Code 71, 73, 75: Snow fall: Slight, moderate, and heavy intensity
+  // Code 77: Snow grains
+  if (code >= 71 && code <= 77) return '❄️';
+  
+  // Code 80, 81, 82: Rain showers: Slight, moderate, and violent
+  if (code >= 80 && code <= 82) return '🌦️';
+  
+  // Code 85, 86: Snow showers slight and heavy
+  if (code === 85 || code === 86) return '🌨️';
+  
+  // Code 95: Thunderstorm: Slight or moderate
+  // Code 96, 99: Thunderstorm with slight and heavy hail
+  if (code >= 95 && code <= 99) return '⛈️';
+  
+  // Fallback
+  return '☁️';
+};
+
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     firstName: '',
@@ -143,42 +180,6 @@ export default function ContactPage() {
         );
         const data = await res.json();
 
-  const getWeatherIcon = (code: number) => {
-    // WMO Weather interpretation codes (WW)
-    // Code 0: Clear sky
-    if (code === 0) return '☀️';
-    
-    // Code 1, 2, 3: Mainly clear, partly cloudy, and overcast
-    if (code >= 1 && code <= 3) return '☁️';
-    
-    // Code 45, 48: Fog and depositing rime fog
-    if (code === 45 || code === 48) return '🌫️';
-    
-    // Code 51, 53, 55: Drizzle: Light, moderate, and dense intensity
-    // Code 56, 57: Freezing Drizzle: Light and dense intensity
-    if (code >= 51 && code <= 57) return '🌧️';
-    
-    // Code 61, 63, 65: Rain: Slight, moderate and heavy intensity
-    // Code 66, 67: Freezing Rain: Light and heavy intensity
-    if (code >= 61 && code <= 67) return '🌧️';
-    
-    // Code 71, 73, 75: Snow fall: Slight, moderate, and heavy intensity
-    // Code 77: Snow grains
-    if (code >= 71 && code <= 77) return '❄️';
-    
-    // Code 80, 81, 82: Rain showers: Slight, moderate, and violent
-    if (code >= 80 && code <= 82) return '🌦️';
-    
-    // Code 85, 86: Snow showers slight and heavy
-    if (code === 85 || code === 86) return '🌨️';
-    
-    // Code 95: Thunderstorm: Slight or moderate
-    // Code 96, 99: Thunderstorm with slight and heavy hail
-    if (code >= 95 && code <= 99) return '⛈️';
-    
-    // Fallback
-    return '☁️';
-  };
 
         const currentCode = data.current.weather_code;
         

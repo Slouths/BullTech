@@ -26,26 +26,21 @@ export async function POST(request: Request) {
     
     // Configure transporter with connection retry and debug options
     const transporter = nodemailer.createTransport({
-      host: process.env.EMAIL_HOST || 'smtp.fatcow.com',
-      port: port,
-      secure: port === 465, // true for 465, false for other ports
+      host: 'smtp.fatcow.com',
+      port: 465,
+      secure: true, // true for 465
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        user: 'hello@bulldigital.tech',
+        pass: process.env.EMAIL_PASS, // Only use the environment variable for the password
       },
       tls: {
-        // Do not fail on invalid certs
-        rejectUnauthorized: false,
-        // Force TLS version if needed, though usually auto-negotiated
-        minVersion: 'TLSv1.2'
-      },
-      debug: true, // Enable debug output
-      logger: true // Log to console
+        rejectUnauthorized: false
+      }
     });
 
     // Email content
     const mailOptions = {
-      from: process.env.EMAIL_USER, // Sender address
+      from: 'hello@bulldigital.tech', // Sender address
       to: 'hello@bulldigital.tech', // Receiver address
       replyTo: email, // Allow replying directly to the submitter
       subject: `New Inquiry: ${subject}`,

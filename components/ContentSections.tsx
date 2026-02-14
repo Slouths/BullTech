@@ -71,11 +71,11 @@ export default function ContentSections() {
       <section
         id="section1"
         ref={section1Ref}
-        className="relative min-h-[100dvh] w-full min-w-0 flex flex-col items-center justify-start pt-32 sm:pt-40 px-6 pb-24 sm:pb-32 md:pb-16 overflow-hidden"
+        className="relative min-h-[100dvh] w-full grid grid-rows-[auto_1fr] justify-items-center pt-32 sm:pt-40 px-6 overflow-hidden"
         style={{ backgroundColor: 'black' }}
       >
-        {/* Centered Content Overlay */}
-        <div ref={textRef} className="relative z-10 flex flex-col items-center text-center max-w-4xl w-full min-w-0 mx-auto space-y-6 sm:space-y-8">
+        {/* Centered Content Overlay - Row 1 */}
+        <div ref={textRef} className="row-start-1 relative z-30 flex flex-col items-center text-center max-w-4xl w-full mx-auto space-y-6 sm:space-y-8 pb-0">
           
           {/* Main Headline */}
           <div className="space-y-4 sm:space-y-6 animate-float w-full min-w-0 overflow-hidden">
@@ -94,15 +94,15 @@ export default function ContentSections() {
 
         </div>
 
-        {/* Hero Video - placed in flow to prevent overlap */}
-        <div ref={videoRef} className="relative w-full flex justify-center z-[6] pointer-events-none mt-[-12rem] sm:mt-[-14rem] md:mt-[-16rem] lg:mt-[-22rem] xl:mt-[-26rem] 2xl:mt-[-30rem] will-change-transform">
+        {/* Hero Video - Row 2 - Safe Zone below text */}
+        <div ref={videoRef} className="row-start-2 w-full flex justify-center items-start overflow-hidden z-10 pointer-events-none select-none will-change-transform mt-[-9rem] sm:mt-[-14rem] md:mt-[-18rem] lg:mt-[-28rem] xl:mt-[-36rem] 2xl:mt-[-42rem]">
           <video
             autoPlay
             loop
             muted
             playsInline
             // poster="/AF_Bulltech_Miami_Sticker01.webp" // Removed to prevent flash of poster
-            className="video-fluid-hero object-contain object-top"
+            className="video-fluid-hero object-contain object-top !mt-0"
           >
             <source src="/logobig.webm" type="video/webm" />
             <source src="/logobig.mp4" type="video/mp4" />

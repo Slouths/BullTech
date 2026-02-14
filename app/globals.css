@@ -18,8 +18,8 @@
 @layer utilities {
   /* Fluid typography: Mobile-first approach with robust clamping */
   .text-fluid-hero {
-    /* Large hero text: 3rem (48px) min, scales to 7rem (112px) max */
-    font-size: clamp(3rem, 10vw + 1rem, 7rem);
+    /* Large hero text: 2.3rem (36.8px) min, scales to 5.5rem (88px) max */
+    font-size: clamp(2.3rem, 7vw + 1rem, 5.5rem);
     line-height: 0.9;
     font-weight: 900;
   }
