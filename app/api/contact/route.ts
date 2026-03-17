@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
+export const maxDuration = 60; // Allow up to 60 seconds for slow SMTP servers
+
 export async function POST(request: Request) {
   try {
     const data = await request.json();
@@ -22,15 +24,17 @@ export async function POST(request: Request) {
     } = data;
 
     // Create a transporter
+    const host = process.env.EMAIL_HOST || 'smtp.fatcow.com';
     const port = parseInt(process.env.EMAIL_PORT || '465');
+    const user = process.env.EMAIL_USER || 'hello@bulldigital.tech';
     
     // Configure transporter with connection retry and debug options
     const transporter = nodemailer.createTransport({
-      host: 'smtp.fatcow.com',
-      port: 465,
-      secure: true, // true for 465
+      host: host,
+      port: port,
+      secure: port === 465,
       auth: {
-        user: 'hello@bulldigital.tech',
+        user: user,
         pass: process.env.EMAIL_PASS, // Only use the environment variable for the password
       },
       tls: {
@@ -40,8 +44,8 @@ export async function POST(request: Request) {
 
     // Email content
     const mailOptions = {
-      from: 'hello@bulldigital.tech', // Sender address
-      to: 'hello@bulldigital.tech', // Receiver address
+      from: user, // Sender address
+      to: user, // Receiver address
       replyTo: email, // Allow replying directly to the submitter
       subject: `New Inquiry: ${subject}`,
       text: `
